@@ -253,6 +253,7 @@ tbody tr.row-selected{background:#f0f9ff}
 .col-status.paused{background:#f9fafb;color:#374151;border-color:#d1d5db}
 .col-status.error{background:#fef2f2;color:#dc2626;border-color:#fca5a5}
 .col-status.archived{background:#f5f3ff;color:#6d28d9;border-color:#c4b5fd}
+.col-status.deactivated{background:#f3f4f6;color:#374151;border-color:#d1d5db}
 .rule-builder{border:1px solid #e5e7eb;border-radius:8px;padding:16px;background:#f9fafb;margin-bottom:16px}
 .rule-block{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:14px;margin-bottom:10px}
 .rule-block-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.04em}
@@ -490,7 +491,7 @@ tbody tr.row-selected{background:#f0f9ff}
       <div class="cards-grid">
         <div class="entity-card" onclick="goTo('ent-listing','Product')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="card-name">Product</div><div class="card-desc">Please write the description here</div></div>
         <div class="entity-card" onclick="goTo('ent-listing','Customers')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="card-name">Customers</div><div class="card-desc">Please write the description here</div></div>
-        <div class="entity-card" onclick="goTo('ent-listing','Location')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-name">Location</div><div class="card-desc">Please write the description here</div></div>
+        <div class="entity-card" onclick="goTo('loc-listing')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-name">Location</div><div class="card-desc">Please write the description here</div></div>
       </div>
     </div>
 
@@ -626,15 +627,17 @@ tbody tr.row-selected{background:#f0f9ff}
             <div class="detail-title" id="col-dv-title"></div>
             <div class="detail-meta" id="col-dv-meta"></div>
           </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap" id="col-detail-actions">
-            <button class="btn-gray" id="col-calc-now-btn" onclick="colCalculateNow()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.08-4.11"/></svg>Manual refresh</button>
-            <button class="btn-green" onclick="goTo('col-edit')">Edit</button>
-            <div class="btn-dots" id="col-detail-dots" onclick="toggleDotsMenu(event,'col-detail-overflow','col-detail-dots')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.5" fill="#374151"/><circle cx="12" cy="12" r="1.5" fill="#374151"/><circle cx="19" cy="12" r="1.5" fill="#374151"/></svg></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start" id="col-detail-actions">
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+              <button class="btn-gray" id="col-calc-now-btn" onclick="colCalculateNow()" style="height:36px"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.08-4.11"/></svg>Manual refresh</button>
+              <span style="font-size:11px;color:#9ca3af">Only data till 12:00 AM IST will be refreshed</span>
+            </div>
+            <button class="btn-green" onclick="goTo('col-edit')" style="height:36px">Edit</button>
+            <div class="btn-dots" id="col-detail-dots" style="height:36px;width:36px" onclick="toggleDotsMenu(event,'col-detail-overflow','col-detail-dots')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.5" fill="#374151"/><circle cx="12" cy="12" r="1.5" fill="#374151"/><circle cx="19" cy="12" r="1.5" fill="#374151"/></svg></div>
             <div class="dots-dropdown" id="col-detail-overflow">
-              <div class="dots-dropdown-item" id="col-pause-item" onclick="colTogglePause()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>Pause schedule</div>
-              <div class="dots-dropdown-item" onclick="colDuplicate()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Duplicate</div>
+              <div class="dots-dropdown-item" onclick="colDuplicate()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2v1"/></svg>Duplicate</div>
               <div class="sdiv"></div>
-              <div class="dots-dropdown-item" style="color:#dc2626" onclick="colArchivePrompt()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>Archive</div>
+              <div class="dots-dropdown-item" style="color:#dc2626" onclick="colDeactivatePrompt()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>Deactivate</div>
             </div>
           </div>
         </div>
@@ -656,10 +659,11 @@ tbody tr.row-selected{background:#f0f9ff}
           <div id="col-dv-rules"></div>
         </div>
         <div id="col-audit-tab-section" style="margin-top:16px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div style="font-size:14px;font-weight:600;color:#111827">Audit history</div>
-          </div>
-          <div id="col-dv-audit"></div>
+          <button class="btn-gray" id="col-show-audit-btn" onclick="colShowAudit()" style="margin-bottom:12px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Show audit logs
+          </button>
+          <div id="col-dv-audit" style="display:none"></div>
         </div>
       </div>
     </div>
@@ -679,7 +683,9 @@ tbody tr.row-selected{background:#f0f9ff}
           <div class="form-group">
             <label class="form-label">Refresh frequency</label>
             <div id="col-c-freq-wrap">
-              <select id="col-c-freq-select" onchange="freqSelectChange('c')" style="width:200px;border:1px solid #d1d5db;border-radius:6px;padding:9px 14px;font-size:14px;color:#111827;background:#fff;cursor:pointer;appearance:auto">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:14px;color:#374151">Every</span>
+                <select id="col-c-freq-select" onchange="freqSelectChange('c')" style="width:200px;border:1px solid #d1d5db;border-radius:6px;padding:9px 14px;font-size:14px;color:#111827;background:#fff;cursor:pointer;appearance:auto">
                 <option value="minute">Minute</option>
                 <option value="hour">Hour</option>
                 <option value="day" selected>Day</option>
@@ -687,6 +693,13 @@ tbody tr.row-selected{background:#f0f9ff}
                 <option value="manual">Manual refresh</option>
                 <option value="__adv__" style="color:#1a73e8">▸ Advanced frequencies</option>
               </select>
+              </div>
+              <!-- Month day picker — shown when "Month" is selected -->
+              <div id="col-c-month-wrap" style="display:none;margin-top:14px">
+                <div style="font-size:13px;color:#374151;margin-bottom:10px;font-weight:500">On which day of the month?</div>
+                <div id="col-c-day-grid" style="display:grid;grid-template-columns:repeat(7,36px);gap:6px"></div>
+                <input type="hidden" id="col-c-month-day" value=""/>
+              </div>
               <div id="col-c-adv-wrap" style="display:none;margin-top:10px">
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                   <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 14px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;color:#374151;background:#fff" id="col-c-adv-days-label">
@@ -709,9 +722,13 @@ tbody tr.row-selected{background:#f0f9ff}
           <div id="col-c-rule-builder"></div>
           <div id="col-c-rule-controls" style="margin-top:8px"></div>
 
+          <div id="col-c-criteria-error" style="display:none;color:#dc2626;font-size:13px;margin-bottom:8px;display:none;align-items:center;gap:6px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            At least one condition is required to save this collection.
+          </div>
           <div class="form-ctas">
             <button class="btn-outline" onclick="goTo('col-listing',currentColTab)">Cancel</button>
-            <button class="btn-green" onclick="submitCollection()">Save collection</button>
+            <button class="btn-green" id="col-c-save-btn" onclick="submitCollection()">Save collection</button>
           </div>
         </div>
       </div>
@@ -730,7 +747,9 @@ tbody tr.row-selected{background:#f0f9ff}
           <div class="form-group">
             <label class="form-label">Refresh frequency</label>
             <div id="col-e-freq-wrap">
-              <select id="col-e-freq-select" onchange="freqSelectChange('e')" style="width:200px;border:1px solid #d1d5db;border-radius:6px;padding:9px 14px;font-size:14px;color:#111827;background:#fff;cursor:pointer;appearance:auto">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:14px;color:#374151">Every</span>
+                <select id="col-e-freq-select" onchange="freqSelectChange('e')" style="width:200px;border:1px solid #d1d5db;border-radius:6px;padding:9px 14px;font-size:14px;color:#111827;background:#fff;cursor:pointer;appearance:auto">
                 <option value="minute">Minute</option>
                 <option value="hour">Hour</option>
                 <option value="day">Day</option>
@@ -738,6 +757,13 @@ tbody tr.row-selected{background:#f0f9ff}
                 <option value="manual">Manual refresh</option>
                 <option value="__adv__" style="color:#1a73e8">▸ Advanced frequencies</option>
               </select>
+              </div>
+              <!-- Month day picker -->
+              <div id="col-e-month-wrap" style="display:none;margin-top:14px">
+                <div style="font-size:13px;color:#374151;margin-bottom:10px;font-weight:500">On which day of the month?</div>
+                <div id="col-e-day-grid" style="display:grid;grid-template-columns:repeat(7,36px);gap:6px"></div>
+                <input type="hidden" id="col-e-month-day" value=""/>
+              </div>
               <div id="col-e-adv-wrap" style="display:none;margin-top:10px">
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                   <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 14px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;color:#374151;background:#fff">
@@ -758,6 +784,10 @@ tbody tr.row-selected{background:#f0f9ff}
           <div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;margin-top:8px">Membership criteria</div>
           <div id="col-e-rule-builder"></div>
           <div id="col-e-rule-controls" style="margin-top:8px"></div>
+          <div id="col-e-criteria-error" style="display:none;color:#dc2626;font-size:13px;margin-bottom:8px;align-items:center;gap:6px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            At least one condition is required to save this collection.
+          </div>
           <div class="form-ctas">
             <button class="btn-outline" onclick="goTo('col-detail')">Cancel</button>
             <button class="btn-green" id="col-e-save-btn" disabled onclick="saveColEdit()">Save changes</button>
@@ -782,11 +812,140 @@ tbody tr.row-selected{background:#f0f9ff}
       </div>
     </div>
 
-  </div>
-</div>
-</div>
+    <!-- LOCATIONS: Listing -->
+    <div class="page" id="page-loc-listing">
+      <div class="back-row"><div class="back-arrow-btn" onclick="goTo('ent-cards')"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div><div class="page-title">Locations</div></div>
+      <div style="margin-bottom:16px"></div>
+      <div class="toolbar">
+        <div class="search-wrap"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input class="search-input" placeholder="Search by store name or code..." oninput="filterLocations(this.value)"/></div>
+        <div class="icon-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg></div>
+        <div style="margin-left:auto"><button class="btn-green" onclick="goTo('loc-create')">+ New location</button></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr>
+          <th>Store name<span class="th-sub">Store code</span></th>
+          <th>City<span class="th-sub">State</span></th>
+          <th>Zone<span class="th-sub">Concept</span></th>
+          <th>Status</th>
+          <th>Updated on<span class="th-sub">Updated by</span></th>
+          <th style="width:48px"></th>
+        </tr></thead>
+        <tbody id="loc-tbody"></tbody>
+      </table></div>
+    </div>
 
-<!-- Modals -->
+    <!-- LOCATIONS: View -->
+    <div class="page" id="page-loc-view">
+      <div class="detail-wrap">
+        <div class="plain-back" onclick="goTo('loc-listing')"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span id="loc-view-title">Location</span></div>
+        <div style="max-width:600px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 28px">
+            <div class="view-row"><div class="view-label">Store name</div><div class="view-value" id="lv-name"></div></div>
+            <div class="view-row"><div class="view-label">Store code</div><div class="view-value" id="lv-code"></div></div>
+            <div class="view-row"><div class="view-label">External ID</div><div class="view-value" id="lv-extid"></div></div>
+            <div class="view-row"><div class="view-label">Status</div><div class="view-value" id="lv-status"></div></div>
+            <div class="view-row"><div class="view-label">City</div><div class="view-value" id="lv-city"></div></div>
+            <div class="view-row"><div class="view-label">State</div><div class="view-value" id="lv-state"></div></div>
+            <div class="view-row"><div class="view-label">Country</div><div class="view-value" id="lv-country"></div></div>
+            <div class="view-row"><div class="view-label">Zip code</div><div class="view-value" id="lv-zip"></div></div>
+            <div class="view-row"><div class="view-label">Zone</div><div class="view-value" id="lv-zone"></div></div>
+            <div class="view-row"><div class="view-label">Concept</div><div class="view-value" id="lv-concept"></div></div>
+            <div class="view-row" style="grid-column:1/-1"><div class="view-label">Address</div><div class="view-value" id="lv-address"></div></div>
+          </div>
+          <div style="margin-top:8px;padding-top:16px;border-top:1px solid #e5e7eb">
+            <div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px">Labels</div>
+            <div id="lv-labels-content"><span style="color:#9ca3af;font-size:14px">No labels assigned</span></div>
+          </div>
+          <div class="form-ctas"><button class="btn-green" onclick="editCurrentLocation()">Edit</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCATIONS: Create/Edit -->
+    <div class="page" id="page-loc-create">
+      <div class="form-page">
+        <div class="plain-back" onclick="goTo('loc-listing')"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span id="loc-form-title">New location</span></div>
+        <div style="max-width:640px">
+          <div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e5e7eb">Basic info</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;margin-bottom:20px">
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">Store name</label><input class="form-input" id="l-name" placeholder="e.g. Andheri West Store"/></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">Store code</label><input class="form-input" id="l-code" placeholder="e.g. BB-MUM-001"/></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">External ID<span class="form-label-opt">(Optional)</span></label><input class="form-input" id="l-extid" placeholder="e.g. EXT-LOC-001"/></div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Status</label>
+              <div class="cs-wrap" id="cs-l-status"></div>
+            </div>
+          </div>
+
+          <div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;margin-top:8px">Address</div>
+          <div class="form-group form-max"><label class="form-label">Street address</label><input class="form-input" id="l-address" placeholder="e.g. Shop 12, Infiniti Mall, Link Road"/></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;margin-bottom:20px">
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">City</label><input class="form-input" id="l-city" placeholder="e.g. Mumbai"/></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">State</label><input class="form-input" id="l-state" placeholder="e.g. Maharashtra"/></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">Country</label><input class="form-input" id="l-country" placeholder="e.g. India"/></div>
+            <div class="form-group" style="margin-bottom:0"><label class="form-label">Zip code</label><input class="form-input" id="l-zip" placeholder="e.g. 400053"/></div>
+          </div>
+
+          <div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;margin-top:8px">Classification</div>
+
+          <div class="form-group" style="max-width:560px">
+            <label class="form-label">Zone</label>
+            <div style="position:relative" id="loc-zone-wrap">
+              <input type="text" class="form-input" id="l-zone-search" placeholder="Search or select zone..." autocomplete="off"
+                oninput="locSearchDropdown('zone',this.value)"
+                onfocus="locOpenDropdown('zone')"
+                style="padding-right:36px"/>
+              <svg style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#9ca3af" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+              <div id="loc-zone-dropdown" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.1);z-index:9999;overflow:hidden">
+                <div id="loc-zone-list" style="max-height:220px;overflow-y:auto"></div>
+                <div style="border-top:1px solid #e5e7eb;padding:10px 14px">
+                  <button type="button" onclick="locAddNew('zone')" style="background:none;border:none;color:#1a73e8;font-size:13px;font-weight:500;cursor:pointer;padding:0;display:flex;align-items:center;gap:5px">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    New zone
+                  </button>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="l-zone-val"/>
+          </div>
+
+          <div class="form-group" style="max-width:560px">
+            <label class="form-label">Concept</label>
+            <div style="position:relative" id="loc-concept-wrap">
+              <input type="text" class="form-input" id="l-concept-search" placeholder="Search or select concept..." autocomplete="off"
+                oninput="locSearchDropdown('concept',this.value)"
+                onfocus="locOpenDropdown('concept')"
+                style="padding-right:36px"/>
+              <svg style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#9ca3af" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+              <div id="loc-concept-dropdown" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.1);z-index:9999;overflow:hidden">
+                <div id="loc-concept-list" style="max-height:220px;overflow-y:auto"></div>
+                <div style="border-top:1px solid #e5e7eb;padding:10px 14px">
+                  <button type="button" onclick="locAddNew('concept')" style="background:none;border:none;color:#1a73e8;font-size:13px;font-weight:500;cursor:pointer;padding:0;display:flex;align-items:center;gap:5px">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    New concept
+                  </button>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="l-concept-val"/>
+          </div>
+
+          <div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;margin-top:8px">Labels</div>
+          <div id="loc-label-entry-wrap"></div>
+          <div class="label-chips" id="loc-label-chips"></div>
+          <div style="margin-top:12px"><button class="btn-gray" id="loc-add-label-btn" onclick="showLocLabelEntry()">+ Add label</button></div>
+
+          <div class="form-ctas" style="margin-top:28px">
+            <button class="btn-outline" onclick="goTo('loc-listing')">Cancel</button>
+            <button class="btn-green" id="loc-submit-btn" onclick="submitLocation()">Add location</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end main -->
+</div><!-- end app -->
 <div class="modal-bg" id="archive-confirm-modal">
   <div class="modal">
     <div class="modal-title">Archive label?</div>
@@ -806,6 +965,13 @@ tbody tr.row-selected{background:#f0f9ff}
     <div class="modal-title">Remove Label?</div>
     <div class="modal-body">Are you sure you want to remove this label? This entity would not be part of promotions and campaigns where this label would be used.</div>
     <div class="modal-footer"><button class="btn-outline" onclick="closeAllModals()">Cancel</button><button class="btn-danger" onclick="confirmChipRemove()">Remove</button></div>
+  </div>
+</div>
+<div class="modal-bg" id="col-deactivate-modal">
+  <div class="modal">
+    <div class="modal-title">Deactivate collection?</div>
+    <div class="modal-body">Further campaigns and promotions <strong>cannot be created</strong> using this collection once it is deactivated. Existing active campaigns will continue to use the last known membership list.</div>
+    <div class="modal-footer"><button class="btn-outline" onclick="closeAllModals()">Cancel</button><button class="btn-danger" onclick="confirmColDeactivate()">Deactivate</button></div>
   </div>
 </div>
 <div class="modal-bg" id="col-archive-modal">
@@ -1446,10 +1612,10 @@ const colFreqUnits = [{v:'minutes',l:'Minutes'},{v:'hours',l:'Hours'},{v:'days',
 const COL_FIELDS_PRODUCTS = [
   {v:'sku',        l:'SKU code',       type:'string'},
   {v:'name',       l:'Product name',   type:'string'},
-  {v:'brand',      l:'Brand',          type:'rigid'},
-  {v:'category',   l:'Category',       type:'rigid'},
-  {v:'attribute',  l:'Attribute',      type:'string'},
-  {v:'label',      l:'Label',          type:'enum'},
+  {v:'brand',      l:'Brand',          type:'picker', pickerOpts:[{v:'infrasphere',l:'Infrasphere (BR-001)'},{v:'techcorp',l:'TechCorp (BR-002)'},{v:'nike',l:'Nike (BR-003)'},{v:'samsung',l:'Samsung (BR-004)'}]},
+  {v:'category',   l:'Category',       type:'picker', pickerOpts:[{v:'electronics',l:'Electronics (CAT-001)'},{v:'apparel',l:'Apparel (CAT-002)'},{v:'network',l:'Network (CAT-003)'},{v:'software',l:'Software (CAT-004)'},{v:'grocery',l:'Grocery (CAT-005)'}]},
+  {v:'attribute',  l:'Attribute',      type:'picker', pickerOpts:[{v:'wireless',l:'Wireless (ATT-001)'},{v:'superfast',l:'Superfast (ATT-002)'},{v:'annual_pack',l:'Annual pack (ATT-003)'},{v:'30m_reach',l:'30m reach (ATT-004)'}]},
+  {v:'label',      l:'Label',          type:'picker', pickerOpts:[{v:'flash_sale',l:'Flash Sale (LC-001)'},{v:'clearance',l:'Clearance (LC-002)'},{v:'new_arrival',l:'New Arrival (LC-003)'},{v:'vip',l:'VIP Member (LC-004)'}]},
   {v:'status',     l:'Status',         type:'enum'},
   {v:'price',      l:'Price',          type:'numeric'},
   {v:'stock',      l:'Stock quantity', type:'numeric'},
@@ -1467,10 +1633,26 @@ function colFields() {
 }
 
 function colOperatorsByType(type) {
-  if(type==='numeric') return [{v:'eq',l:'Equals'},{v:'neq',l:'Not equals'},{v:'gt',l:'Greater than'},{v:'lt',l:'Less than'},{v:'gte',l:'≥'},{v:'lte',l:'≤'},{v:'between',l:'Between'}];
-  if(type==='date') return [{v:'on',l:'On'},{v:'before',l:'Before'},{v:'after',l:'After'},{v:'between',l:'Between'},{v:'within_last',l:'Within last X days'},{v:'in_next',l:'In next X days'}];
-  if(type==='rigid') return [{v:'eq',l:'Equals'},{v:'neq',l:'Not equals'},{v:'in',l:'In list'}];
-  return [{v:'eq',l:'Equals'},{v:'neq',l:'Not equals'},{v:'contains',l:'Contains'},{v:'starts_with',l:'Starts with'},{v:'ends_with',l:'Ends with'},{v:'is_empty',l:'Is empty'},{v:'in',l:'In list'}];
+  if(type==='numeric') return [
+    {v:'gt', l:'> Greater than'},
+    {v:'lt', l:'< Less than'},
+    {v:'gte',l:'>= Greater than or equal to'},
+    {v:'lte',l:'<= Less than or equal to'},
+    {v:'between',l:'Between (within a range)'},
+  ];
+  if(type==='date') return [
+    {v:'on',         l:'On'},
+    {v:'before',     l:'Before'},
+    {v:'after',      l:'After'},
+    {v:'between',    l:'Between'},
+    {v:'within_last',l:'Within last X days'},
+    {v:'in_next',    l:'In next X days'},
+  ];
+  // string, enum, picker, rigid — all get include/exclude only
+  return [
+    {v:'include',l:'Include'},
+    {v:'exclude',l:'Exclude'},
+  ];
 }
 
 /* collections data store */
@@ -1485,9 +1667,13 @@ let collections = [
 
 const colAuditLogs = [
   {date:'28 Mar, 2026, 10:45 AM',user:'System',email:'system@capillary.com',actionType:'Calculated',actionDesc:'Membership was recalculated successfully',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management'},
-  {date:'27 Mar, 2026, 02:10 PM',user:'Priya Mehta',email:'priya.mehta@bigbasket.com',actionType:'Edit',actionDesc:'Membership criteria was updated',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management'},
-  {date:'15 Mar, 2026, 09:30 AM',user:'Vikram Nair',email:'vikram.nair@bigbasket.com',actionType:'Pause',actionDesc:'Refresh schedule was paused',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management'},
-  {date:'10 Mar, 2026, 04:15 PM',user:'Rahul Sharma',email:'rahul.sharma@bigbasket.com',actionType:'Edit',actionDesc:'Refresh frequency was changed to Every 1 Hour',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management'},
+  {date:'27 Mar, 2026, 02:10 PM',user:'Priya Mehta',email:'priya.mehta@bigbasket.com',actionType:'Edit',actionDesc:'Membership criteria was updated',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management',
+    before:{field:'Category',operator:'Include',value:'Electronics'},
+    after:{field:'Category',operator:'Include',value:'Electronics, Appliances'}},
+  {date:'15 Mar, 2026, 09:30 AM',user:'Vikram Nair',email:'vikram.nair@bigbasket.com',actionType:'Pause',actionDesc:'Refresh schedule was paused',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management',
+    before:{status:'Active'},after:{status:'Paused'}},
+  {date:'10 Mar, 2026, 04:15 PM',user:'Rahul Sharma',email:'rahul.sharma@bigbasket.com',actionType:'Edit',actionDesc:'Refresh frequency was changed',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management',
+    before:{frequency:'Every 1 Day'},after:{frequency:'Every 1 Hour'}},
   {date:'01 Jan, 2026, 11:00 AM',user:'Priya Mehta',email:'priya.mehta@bigbasket.com',actionType:'Created',actionDesc:'Collection was created',entity:'Flash Sale Items',entityType:'Collection',module:'Data Management'},
 ];
 
@@ -1544,13 +1730,13 @@ function renderColTable(filter){
   if(!rows.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#9ca3af;padding:32px">No collections found.</td></tr>';return;}
   tbody.innerHTML=rows.map((c,i)=>{
     const realIdx=collections.indexOf(c);
-    const statusLabel={active:'Active',pending:'Pending Calculation',calculating:'Calculating',paused:'Paused',error:'Error',archived:'Archived'}[c.status]||c.status;
+    const statusLabel={active:'Active',pending:'Pending Calculation',calculating:'Calculating',paused:'Paused',error:'Error',archived:'Archived',deactivated:'Deactivated'}[c.status]||c.status;
     return '<tr onclick="openColDetail('+realIdx+')">'+
       '<td><div class="row-primary">'+c.name+'</div><div class="row-secondary">'+(c.extId||'—')+'</div></td>'+
       '<td><span class="col-status '+c.status+'">'+statusLabel+'</span></td>'+
-      '<td style="font-weight:600;color:#111827">'+(c.count>0?c.count.toLocaleString():c.status==='active'?'0':'—')+'</td>'+
-      '<td style="font-size:13px;color:#374151">'+(c.freqUnit==='manual'?'Manual refresh':('Every '+c.freqN+' '+c.freqUnit))+'</td>'+
-      '<td><div class="row-primary" style="font-size:12px">'+c.lastCalc+'</div><div class="row-secondary">'+c.nextRun+'</div></td>'+
+      '<td style="font-weight:600;color:#111827">'+(c.status==='pending'?'<span style="color:#9ca3af;font-style:italic">Processing...</span>':(c.count>0?c.count.toLocaleString():c.status==='active'?'0':'—'))+'</td>'+
+      '<td style="font-size:13px;color:#374151">'+(c.status==='pending'?'<span style="color:#9ca3af;font-style:italic">Processing...</span>':(c.freqUnit==='manual'?'Manual refresh':('Every '+c.freqN+' '+c.freqUnit)))+'</td>'+
+      '<td><div class="row-primary" style="font-size:12px">'+(c.status==='pending'?'<span style="color:#9ca3af;font-style:italic">Processing...</span>':c.lastCalc)+'</div><div class="row-secondary">'+(c.status==='pending'?'':c.nextRun)+'</div></td>'+
       '<td class="ellipsis-cell" onclick="event.stopPropagation()">'+
         '<button class="ellipsis-btn" onclick="toggleMenu(event,\'cmenu-'+realIdx+'\')">···</button>'+
         '<div class="row-menu" id="cmenu-'+realIdx+'">'+
@@ -1576,12 +1762,13 @@ function openColDetail(idx){
   document.getElementById('col-detail-back').textContent=currentColTab+' Collections';
   document.getElementById('col-dv-title').textContent=c.name;
   document.getElementById('col-dv-meta').textContent='ID: '+c.id+(c.extId?' · External ID: '+c.extId:'')+' · Created by '+c.createdBy+' on '+c.createdAt;
-  const statusLabel={active:'Active',pending:'Pending Calculation',calculating:'Calculating',paused:'Paused',error:'Error',archived:'Archived'}[c.status]||c.status;
-  document.getElementById('col-dv-status').innerHTML='<span class="col-status '+c.status+'">'+(c.status==='calculating'?'Processing...':statusLabel)+'</span>';
-  document.getElementById('col-dv-count').innerHTML=c.status==='calculating'?'<span style="color:#9ca3af;font-style:italic">Processing...</span>':(c.count>0?'<span class="count-badge"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'+c.count.toLocaleString()+' items</span>':'<span style="color:#9ca3af">—</span>');
+  const statusLabel={active:'Active',pending:'Pending Calculation',calculating:'Calculating',paused:'Paused',error:'Error',archived:'Archived',deactivated:'Deactivated'}[c.status]||c.status;
+  const isProcessing = c.status==='calculating'||c.status==='pending';
+  document.getElementById('col-dv-status').innerHTML='<span class="col-status '+c.status+'">'+(isProcessing?'Processing...':statusLabel)+'</span>';
+  document.getElementById('col-dv-count').innerHTML=isProcessing?'<span style="color:#9ca3af;font-style:italic">Calculating...</span>':(c.count>0?'<span class="count-badge"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'+c.count.toLocaleString()+' items</span>':'<span style="color:#9ca3af">—</span>');
   document.getElementById('col-dv-extid').textContent=c.extId||'—';
   document.getElementById('col-dv-freq').textContent=c.freqUnit==='manual'?'Manual refresh':('Every '+c.freqN+' '+c.freqUnit);
-  document.getElementById('col-dv-lastcalc').textContent=c.status==='calculating'?'Processing...':(c.lastCalc||'—');
+  document.getElementById('col-dv-lastcalc').textContent=isProcessing?'Calculating...':(c.lastCalc||'—');
   document.getElementById('col-dv-nextrun').textContent=c.nextRun||'—';
   document.getElementById('col-dv-desc').textContent=c.desc||'—';
   // ETA bar
@@ -1596,8 +1783,11 @@ function openColDetail(idx){
   if(calcBtn) calcBtn.disabled=(c.status==='calculating');
   const pauseItem=document.getElementById('col-pause-item');
   if(pauseItem) pauseItem.innerHTML=(c.status==='paused'?'<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Resume schedule':'<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>Pause schedule');
-  // audit
-  renderColAudit();
+  // reset audit to hidden state so it requires CTA click each time
+  const auditBtn=document.getElementById('col-show-audit-btn');
+  const auditEl=document.getElementById('col-dv-audit');
+  if(auditBtn){auditBtn.style.display='inline-flex';}
+  if(auditEl){auditEl.style.display='none';auditEl.innerHTML='';}
   goTo('col-detail');
 }
 
@@ -1625,8 +1815,16 @@ function renderColRulesReadonly(containerId, rules, hasInvalidField){
   el.innerHTML=html;
 }
 
+function colShowAudit(){
+  const btn=document.getElementById('col-show-audit-btn');
+  const el=document.getElementById('col-dv-audit');
+  if(btn) btn.style.display='none';
+  if(el) el.style.display='block';
+  renderColAudit();
+}
 function renderColAudit(){
-  const el=document.getElementById('col-dv-audit'); if(!el) return;
+  const el=document.getElementById('col-dv-audit');
+  if(!el) return;
   const iconMap={
     'Calculated':'<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.08-4.11"/></svg>',
     'Edit':'<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
@@ -1634,49 +1832,60 @@ function renderColAudit(){
     'Created':'<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
     'Archive':'<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>',
   };
-  el.innerHTML=`
-    <table style="width:100%;border-collapse:collapse;font-size:13px">
-      <thead>
-        <tr style="border-bottom:1px solid #e5e7eb">
-          <th style="text-align:left;padding:10px 16px 10px 0;font-size:12px;font-weight:600;color:#374151;white-space:nowrap;width:160px">Date and time</th>
-          <th style="text-align:left;padding:10px 16px;font-size:12px;font-weight:600;color:#374151">
-            Activity
-            <div style="font-size:11px;font-weight:400;color:#9ca3af;margin-top:1px">Description</div>
-          </th>
-          <th style="text-align:left;padding:10px 16px;font-size:12px;font-weight:600;color:#374151">
-            Entity
-            <div style="font-size:11px;font-weight:400;color:#9ca3af;margin-top:1px">Entity type</div>
-          </th>
-          <th style="text-align:left;padding:10px 0 10px 16px;font-size:12px;font-weight:600;color:#374151;white-space:nowrap">Performed by</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${colAuditLogs.map(log=>`
-          <tr style="border-bottom:1px solid #f3f4f6">
-            <td style="padding:14px 16px 14px 0;color:#374151;font-size:13px;vertical-align:top;white-space:nowrap">${log.date}</td>
-            <td style="padding:14px 16px;vertical-align:top">
-              <div style="display:flex;align-items:center;gap:7px;font-weight:600;color:#111827;margin-bottom:3px">
-                <span style="color:#6b7280;flex-shrink:0">${iconMap[log.actionType]||iconMap['Edit']}</span>
-                ${log.actionType}
-              </div>
-              <div style="font-size:12px;color:#6b7280">${log.actionDesc}</div>
-            </td>
-            <td style="padding:14px 16px;vertical-align:top">
-              <div style="font-weight:500;color:#111827;margin-bottom:3px;text-decoration:underline;cursor:pointer">${log.entity}</div>
-              <div style="font-size:12px;color:#6b7280;display:flex;align-items:center;gap:6px">
-                ${log.entityType}
-                <span style="color:#d1d5db">|</span>
-                ${log.module}
-              </div>
-            </td>
-            <td style="padding:14px 0 14px 16px;vertical-align:top">
-              <div style="font-weight:500;color:#111827;margin-bottom:3px">${log.user}</div>
-              <div style="font-size:12px;color:#6b7280">${log.email}</div>
-            </td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>`;
+  var rows = colAuditLogs.map(function(log){
+    var icon = iconMap[log.actionType] || iconMap['Edit'];
+    // Build before/after diff if present
+    var diffHtml = '';
+    if(log.before && log.after){
+      var keys = Object.keys(log.before);
+      diffHtml = '<div style="margin-top:8px;display:flex;flex-direction:column;gap:4px">';
+      keys.forEach(function(k){
+        diffHtml +=
+          '<div style="display:flex;align-items:center;gap:6px;font-size:12px;flex-wrap:wrap">'+
+            '<span style="color:#6b7280;min-width:60px;font-weight:500">'+k+'</span>'+
+            '<span style="background:#fef2f2;color:#dc2626;padding:1px 8px;border-radius:4px;border:1px solid #fecaca;opacity:0.45;">'+log.before[k]+'</span>'+
+            '<svg width="12" height="12" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'+
+            '<span style="background:#f0fdf4;color:#16a34a;padding:1px 8px;border-radius:4px;border:1px solid #86efac;">'+log.after[k]+'</span>'+
+          '</div>';
+      });
+      diffHtml += '</div>';
+    }
+    return '<tr style="border-bottom:1px solid #f3f4f6">'+
+      '<td style="padding:14px 16px 14px 0;color:#374151;font-size:13px;vertical-align:top;white-space:nowrap">'+log.date+'</td>'+
+      '<td style="padding:14px 16px;vertical-align:top">'+
+        '<div style="display:flex;align-items:center;gap:7px;font-weight:600;color:#111827;margin-bottom:3px">'+
+          '<span style="color:#6b7280;flex-shrink:0">'+icon+'</span>'+
+          log.actionType+
+        '</div>'+
+        '<div style="font-size:12px;color:#6b7280">'+log.actionDesc+'</div>'+
+        diffHtml+
+      '</td>'+
+      '<td style="padding:14px 16px;vertical-align:top">'+
+        '<div style="font-weight:500;color:#111827;margin-bottom:3px;text-decoration:underline;cursor:pointer">'+log.entity+'</div>'+
+        '<div style="font-size:12px;color:#6b7280;display:flex;align-items:center;gap:6px">'+
+          log.entityType+
+          '<span style="color:#d1d5db">|</span>'+
+          log.module+
+        '</div>'+
+      '</td>'+
+      '<td style="padding:14px 0 14px 16px;vertical-align:top">'+
+        '<div style="font-weight:500;color:#111827;margin-bottom:3px">'+log.user+'</div>'+
+        '<div style="font-size:12px;color:#6b7280">'+log.email+'</div>'+
+      '</td>'+
+    '</tr>';
+  }).join('');
+  el.innerHTML =
+    '<table style="width:100%;border-collapse:collapse;font-size:13px">'+
+      '<thead>'+
+        '<tr style="border-bottom:1px solid #e5e7eb">'+
+          '<th style="text-align:left;padding:10px 16px 10px 0;font-size:12px;font-weight:600;color:#374151;white-space:nowrap;width:160px">Date and time</th>'+
+          '<th style="text-align:left;padding:10px 16px;font-size:12px;font-weight:600;color:#374151">Activity<div style="font-size:11px;font-weight:400;color:#9ca3af;margin-top:1px">Description</div></th>'+
+          '<th style="text-align:left;padding:10px 16px;font-size:12px;font-weight:600;color:#374151">Entity<div style="font-size:11px;font-weight:400;color:#9ca3af;margin-top:1px">Entity type</div></th>'+
+          '<th style="text-align:left;padding:10px 0 10px 16px;font-size:12px;font-weight:600;color:#374151;white-space:nowrap">Performed by</th>'+
+        '</tr>'+
+      '</thead>'+
+      '<tbody>'+rows+'</tbody>'+
+    '</table>';
 }
 
 /* ─── CALCULATE ─── */
@@ -1700,16 +1909,19 @@ function _doCalculate(idx){
     showToaster('Refresh complete', c.name+' · '+c.count+' items');
     if(document.getElementById('page-col-detail').classList.contains('active')&&currentCollectionIdx===idx) openColDetail(idx);
     renderColTable();
-  },2500);
+  },30000);
 }
 
-/* ─── PAUSE / RESUME ─── */
-function colTogglePause(){
-  closeAllDropdowns();
+/* ─── DEACTIVATE ─── */
+function colDeactivatePrompt(){closeAllDropdowns();document.getElementById('col-deactivate-modal').classList.add('show');}
+function colDeactivateFromTable(idx){closeAllDropdowns();currentCollectionIdx=idx;colDeactivatePrompt();}
+function confirmColDeactivate(){
+  closeAllModals();
   const c=collections[currentCollectionIdx]; if(!c) return;
-  if(c.status==='paused'){c.status='active';c.nextRun='Resuming...';showToaster('Schedule resumed',c.name);}
-  else{c.status='paused';c.nextRun='Paused';showToaster('Schedule paused',c.name);}
-  openColDetail(currentCollectionIdx);
+  c.status='deactivated'; c.nextRun='—';
+  showToaster('Collection deactivated', c.name);
+  if(document.getElementById('page-col-detail').classList.contains('active')) openColDetail(currentCollectionIdx);
+  else renderColTable();
 }
 
 /* ─── ARCHIVE ─── */
@@ -1792,22 +2004,64 @@ function renderRuleBuilder(containerId, controlsId, rulesArr, onChange){
     /* Condition rows */
     (block.conditions||[]).forEach((cond,ci)=>{
       if(ci>0){
-        /* intra-badge between rows */
-        html+='<div style="display:flex;align-items:center;gap:6px;margin:4px 0 4px 0">';
+        html+='<div style="display:flex;align-items:center;gap:6px;margin:4px 0">';
         html+='<span style="font-size:11px;font-weight:700;color:'+(intraVal==='or'?'#7c3aed':'#1a73e8')+';padding:1px 8px;background:'+(intraVal==='or'?'#f5f3ff':'#eff6ff')+';border-radius:20px;border:1px solid '+(intraVal==='or'?'#ddd6fe':'#bfdbfe')+';">'+(intraVal==='or'?'OR':'AND')+'</span>';
         html+='</div>';
       }
-      html+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 28px;gap:8px;align-items:center;margin-bottom:4px;" id="rb-cond-'+containerId+'-'+bi+'-'+ci+'">';
+      const fDef=fields.find(f=>f.v===cond.field)||{type:'string'};
+      const isPicker=fDef.type==='picker';
+      const isNumOrDate=(fDef.type==='numeric'||fDef.type==='date');
+      const needsValue=isNumOrDate; // only numeric and date need a value input; picker fields don't
+      const isBetween=(cond.op==='between');
+
+      html+='<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px;" id="rb-cond-'+containerId+'-'+bi+'-'+ci+'">';
+
+      // Row 1: Field | Operator (greyed until field chosen) | remove
+      html+='<div style="display:grid;grid-template-columns:1fr 1fr 28px;gap:8px;align-items:center;">';
       html+='<div class="rule-cs cs-wrap" id="rb-f-'+containerId+'-'+bi+'-'+ci+'"></div>';
-      html+='<div class="rule-cs cs-wrap" id="rb-o-'+containerId+'-'+bi+'-'+ci+'"></div>';
-      html+='<input class="form-input" style="height:38px;font-size:13px;width:100%;" placeholder="Value" value="'+(cond.val||'')+'" oninput="rbValChange(\''+containerId+'\',\''+controlsId+'\','+bi+','+ci+',this.value)" id="rb-v-'+containerId+'-'+bi+'-'+ci+'"/>';
+      html+='<div class="rule-cs cs-wrap" id="rb-o-'+containerId+'-'+bi+'-'+ci+'" style="'+(cond.field?'':'opacity:0.4;pointer-events:none')+'"></div>';
       html+='<button class="rule-remove-btn" style="justify-self:center" onclick="rbRemoveCond(\''+containerId+'\',\''+controlsId+'\','+bi+','+ci+')">'+(((block.conditions||[]).length>1)?'✕':'')+'</button>';
       html+='</div>';
+
+      // Row 2 for picker: picker dropdown (greyed until operator chosen)
+      if(isPicker && cond.op){
+        html+='<div style="display:grid;grid-template-columns:1fr 28px;gap:8px;align-items:center;">';
+        html+='<div class="rule-cs cs-wrap" id="rb-pk-'+containerId+'-'+bi+'-'+ci+'"></div>';
+        html+='<span></span>';
+        html+='</div>';
+      }
+
+      // Row 2/3 for numeric/date: value input(s) (greyed until operator chosen)
+      if(needsValue && cond.op){
+        if(isBetween){
+          html+='<div style="display:grid;grid-template-columns:1fr 1fr 28px;gap:8px;align-items:center;">';
+          html+='<input class="form-input" style="height:38px;font-size:13px;" placeholder="'+(fDef.type==='date'?'Start date':'Min value')+'" value="'+(cond.val||'')+'" oninput="rbValChange(\''+containerId+'\',\''+controlsId+'\','+bi+','+ci+',this.value)" id="rb-v-'+containerId+'-'+bi+'-'+ci+'"/>';
+          html+='<input class="form-input" style="height:38px;font-size:13px;" placeholder="'+(fDef.type==='date'?'End date':'Max value')+'" value="'+(cond.val2||'')+'" oninput="rbVal2Change(\''+containerId+'\',\''+controlsId+'\','+bi+','+ci+',this.value)" id="rb-v2-'+containerId+'-'+bi+'-'+ci+'"/>';
+          html+='<span></span>';
+          html+='</div>';
+        } else {
+          html+='<div style="display:grid;grid-template-columns:1fr 28px;gap:8px;align-items:center;">';
+          html+='<input class="form-input" style="height:38px;font-size:13px;" placeholder="Value" value="'+(cond.val||'')+'" oninput="rbValChange(\''+containerId+'\',\''+controlsId+'\','+bi+','+ci+',this.value)" id="rb-v-'+containerId+'-'+bi+'-'+ci+'"/>';
+          html+='<span></span>';
+          html+='</div>';
+        }
+      }
+
+      html+='</div>'; // end cond wrapper
     });
 
-    /* Add condition button — enabled only when last row is complete */
+    /* Add condition button — disabled until last row is fully complete */
     const lastCond=block.conditions[block.conditions.length-1];
-    const lastComplete=lastCond&&lastCond.field&&lastCond.op&&lastCond.val;
+    const lastFDef=fields.find(f=>f.v===lastCond.field)||{type:'string'};
+    const lastIsPicker=lastFDef.type==='picker';
+    const lastNeedsVal=(lastFDef.type==='numeric'||lastFDef.type==='date');
+    const lastIsBetween=lastCond.op==='between';
+    let lastComplete=false;
+    if(lastCond.field && lastCond.op){
+      if(lastIsPicker) lastComplete=!!lastCond.pickerVal;
+      else if(lastNeedsVal) lastComplete=lastIsBetween?(!!lastCond.val&&!!lastCond.val2):!!lastCond.val;
+      else lastComplete=true; // string/enum: field+op is enough
+    }
     html+='<button class="rule-add-btn" style="margin-top:8px;'+(lastComplete?'':'opacity:0.4;cursor:not-allowed;pointer-events:none')+'" '+(lastComplete?'onclick="rbAddCond(\''+containerId+'\',\''+controlsId+'\','+bi+')"':'disabled')+'>+ Add condition</button>';
     html+='</div>';
   });
@@ -1817,15 +2071,68 @@ function renderRuleBuilder(containerId, controlsId, rulesArr, onChange){
   /* Hydrate dropdowns */
   rulesArr.forEach((block,bi)=>{
     (block.conditions||[]).forEach((cond,ci)=>{
-      const fType=(fields.find(f=>f.v===cond.field)||{type:'string'}).type;
-      const opOpts=[{v:'',l:'Select operator'},...colOperatorsByType(fType)];
+      const fDef=fields.find(f=>f.v===cond.field)||{type:'string'};
+      const isPicker=fDef.type==='picker';
+      // Always create field dropdown
       csCreate('rb-f-'+containerId+'-'+bi+'-'+ci, fieldOpts, 'Select field', cond.field||'', function(v){rbFieldChange(containerId,controlsId,bi,ci,v);});
-      csCreate('rb-o-'+containerId+'-'+bi+'-'+ci, opOpts, 'Select operator', cond.op||'', function(v){rbOpChange(containerId,controlsId,bi,ci,v);});
+      // Always create operator dropdown (greyed via CSS if no field)
+      if(cond.field){
+        const opOpts=[{v:'',l:'Select operator'},...colOperatorsByType(fDef.type)];
+        csCreate('rb-o-'+containerId+'-'+bi+'-'+ci, opOpts, 'Select operator', cond.op||'', function(v){rbOpChange(containerId,controlsId,bi,ci,v);});
+      }
+      // Picker dropdown appears after operator is chosen
+      if(isPicker && cond.op){
+        const pOpts=[{v:'',l:'Select '+(fDef.l||'value')},...(fDef.pickerOpts||[])];
+        csCreate('rb-pk-'+containerId+'-'+bi+'-'+ci, pOpts, 'Select '+(fDef.l||'value'), cond.pickerVal||'', function(v){rbPickerChange(containerId,controlsId,bi,ci,v);});
+      }
     });
   });
 
   if(ctrl){
     ctrl.innerHTML=(rulesArr.length<5?'<button class="block-add-btn" onclick="rbAddBlock(\''+containerId+'\',\''+controlsId+'\')">+ Add condition block</button>':'');
+  }
+  // Check if any complete condition exists — update save button state
+  colCheckCriteria(containerId, rulesArr);
+}
+
+function colCheckCriteria(containerId, rulesArr){
+  const isCreate = containerId.includes('col-c-');
+  const prefix = isCreate ? 'col-c' : 'col-e';
+  const fields = colFields();
+  var hasComplete = false;
+  var allFilled = true; // all entered conditions must be complete
+  (rulesArr||[]).forEach(function(block){
+    (block.conditions||[]).forEach(function(cond){
+      if(!cond.field) { allFilled=false; return; }
+      const fDef = fields.find(function(f){return f.v===cond.field;})||{type:'string'};
+      const isPicker = fDef.type==='picker';
+      const needsVal = (fDef.type==='numeric'||fDef.type==='date');
+      const isBetween = cond.op==='between';
+      let complete = false;
+      if(cond.field && cond.op){
+        if(isPicker) complete = !!cond.pickerVal;
+        else if(needsVal) complete = isBetween ? (!!cond.val && !!cond.val2) : !!cond.val;
+        else complete = true;
+      }
+      if(complete) hasComplete = true;
+      else allFilled = false;
+    });
+  });
+  const saveBtn = document.getElementById(prefix+'-save-btn');
+  const errEl   = document.getElementById(prefix+'-criteria-error');
+  const canSave = hasComplete && allFilled;
+  if(saveBtn){
+    saveBtn.disabled = !canSave;
+    saveBtn.style.opacity = canSave ? '' : '0.5';
+    saveBtn.style.cursor  = canSave ? '' : 'not-allowed';
+  }
+  if(errEl){
+    errEl.style.display = canSave ? 'none' : 'flex';
+    const msg = !hasComplete
+      ? 'At least one condition is required to save this collection.'
+      : 'Please fill all fields in every condition before saving.';
+    const span = errEl.querySelector('span');
+    if(span) span.textContent = msg; else errEl.childNodes[errEl.childNodes.length-1].textContent = msg;
   }
 }
 
@@ -1856,12 +2163,18 @@ function rbRemoveCond(cId,ctrlId,bi,ci){
   if(cId.includes('col-e-')) colEditDirtyFn();
 }
 function rbFieldChange(cId,ctrlId,bi,ci,v){
-  const r=rbGetRules(cId); r[bi].conditions[ci].field=v; r[bi].conditions[ci].op=''; r[bi].conditions[ci].val='';
+  const r=rbGetRules(cId); r[bi].conditions[ci].field=v; r[bi].conditions[ci].op=''; r[bi].conditions[ci].val=''; r[bi].conditions[ci].pickerVal='';
   renderRuleBuilder(cId,ctrlId,r);
   if(cId.includes('col-e-')) colEditDirtyFn();
 }
-function rbOpChange(cId,ctrlId,bi,ci,v){const r=rbGetRules(cId); r[bi].conditions[ci].op=v; renderRuleBuilder(cId,ctrlId,r); if(cId.includes('col-e-')) colEditDirtyFn();}
+function rbPickerChange(cId,ctrlId,bi,ci,v){
+  const r=rbGetRules(cId); r[bi].conditions[ci].pickerVal=v; r[bi].conditions[ci].op=''; r[bi].conditions[ci].val='';
+  renderRuleBuilder(cId,ctrlId,r);
+  if(cId.includes('col-e-')) colEditDirtyFn();
+}
+function rbOpChange(cId,ctrlId,bi,ci,v){const r=rbGetRules(cId); r[bi].conditions[ci].op=v; r[bi].conditions[ci].val=''; r[bi].conditions[ci].val2=''; renderRuleBuilder(cId,ctrlId,r); if(cId.includes('col-e-')) colEditDirtyFn();}
 function rbValChange(cId,ctrlId,bi,ci,v){const r=rbGetRules(cId); r[bi].conditions[ci].val=v; renderRuleBuilder(cId,ctrlId,r); if(cId.includes('col-e-')) colEditDirtyFn();}
+function rbVal2Change(cId,ctrlId,bi,ci,v){const r=rbGetRules(cId); r[bi].conditions[ci].val2=v; renderRuleBuilder(cId,ctrlId,r); if(cId.includes('col-e-')) colEditDirtyFn();}
 function rbIntraChange(cId,ctrlId,bi,v){const r=rbGetRules(cId); r[bi].intraLogic=v; renderRuleBuilder(cId,ctrlId,r); if(cId.includes('col-e-')) colEditDirtyFn();}
 function rbInterChange(cId,ctrlId,v){const r=rbGetRules(cId); r.forEach(b=>b.interLogic=v); renderRuleBuilder(cId,ctrlId,r); if(cId.includes('col-e-')) colEditDirtyFn();}
 
@@ -1869,14 +2182,58 @@ function rbInterChange(cId,ctrlId,v){const r=rbGetRules(cId); r.forEach(b=>b.int
 function freqSelectChange(p){
   const sel=document.getElementById('col-'+p+'-freq-select');
   const advWrap=document.getElementById('col-'+p+'-adv-wrap');
+  const monthWrap=document.getElementById('col-'+p+'-month-wrap');
   if(sel.value==='__adv__'){
-    // Don't actually select this option — revert to previous and show advanced
-    sel.value = sel.dataset.prev||'day';
+    sel.value=sel.dataset.prev||'day';
+    const dayOpt=sel.querySelector('option[value="'+sel.value+'"]');
+    if(dayOpt){dayOpt.dataset.origText=dayOpt.dataset.origText||dayOpt.textContent;dayOpt.textContent='Advanced frequencies';}
     advWrap.style.display='block';
+    if(monthWrap) monthWrap.style.display='none';
   } else {
+    sel.querySelectorAll('option').forEach(o=>{if(o.dataset.origText) o.textContent=o.dataset.origText;});
     sel.dataset.prev=sel.value;
     advWrap.style.display='none';
+    document.querySelectorAll('input[name="col-'+p+'-adv"]').forEach(r=>r.checked=false);
+    const valWrap=document.getElementById('col-'+p+'-adv-val-wrap');
+    if(valWrap) valWrap.style.display='none';
+    // Show month day picker only for month
+    if(monthWrap){
+      if(sel.value==='month'){
+        monthWrap.style.display='block';
+        freqRenderDayGrid(p, parseInt(document.getElementById('col-'+p+'-month-day').value)||0);
+      } else {
+        monthWrap.style.display='none';
+      }
+    }
   }
+  if(p==='e') colEditDirtyFn();
+}
+function freqRenderDayGrid(p, selected){
+  const grid=document.getElementById('col-'+p+'-day-grid');
+  if(!grid) return;
+  let html='';
+  for(let d=1;d<=31;d++){
+    const isSel=d===selected;
+    html+='<button type="button" onclick="freqPickDay(\''+p+'\','+d+')" style="'+
+      'width:36px;height:36px;border-radius:6px;border:1px solid '+(isSel?'#1a73e8':'#e5e7eb')+';'+
+      'background:'+(isSel?'#1a73e8':'#fff')+';'+
+      'color:'+(isSel?'#fff':'#374151')+';'+
+      'font-size:13px;font-weight:'+(isSel?'700':'400')+';'+
+      'cursor:pointer;transition:all .12s'+
+    '">'+d+'</button>';
+  }
+  // Last option: Last day of month
+  const isLast=selected===32;
+  html+='<button type="button" onclick="freqPickDay(\''+p+'\',32)" style="'+
+    'grid-column:span 7;width:100%;height:36px;border-radius:6px;border:1px solid '+(isLast?'#1a73e8':'#e5e7eb')+';'+
+    'background:'+(isLast?'#1a73e8':'#fff')+';color:'+(isLast?'#fff':'#374151')+';'+
+    'font-size:13px;font-weight:'+(isLast?'700':'400')+';cursor:pointer;margin-top:2px'+
+  '">Last day of month</button>';
+  grid.innerHTML=html;
+}
+function freqPickDay(p, d){
+  document.getElementById('col-'+p+'-month-day').value=d;
+  freqRenderDayGrid(p, d);
   if(p==='e') colEditDirtyFn();
 }
 function freqAdvChange(p,type){
@@ -1897,27 +2254,44 @@ function freqGetValue(p){
     }
   }
   const v=sel?sel.value:'day';
+  if(v==='month'){
+    const day=parseInt(document.getElementById('col-'+p+'-month-day').value)||1;
+    return {freqN:day, freqUnit:'month'};
+  }
   return {freqN:1, freqUnit:v==='manual'?'manual':v};
 }
 function freqSetValue(p, freqUnit, freqN){
   const sel=document.getElementById('col-'+p+'-freq-select');
   const advWrap=document.getElementById('col-'+p+'-adv-wrap');
+  const monthWrap=document.getElementById('col-'+p+'-month-wrap');
   if(freqUnit==='days'&&freqN>1){
     sel.value='day'; sel.dataset.prev='day';
     advWrap.style.display='block';
+    if(monthWrap) monthWrap.style.display='none';
     const r=document.querySelector('input[name="col-'+p+'-adv"][value="adv_days"]');
     if(r){r.checked=true; freqAdvChange(p,'adv_days');}
     const n=document.getElementById('col-'+p+'-adv-n'); if(n) n.value=freqN;
   } else if(freqUnit==='weeks'){
     sel.value='day'; sel.dataset.prev='day';
     advWrap.style.display='block';
+    if(monthWrap) monthWrap.style.display='none';
     const r=document.querySelector('input[name="col-'+p+'-adv"][value="adv_weeks"]');
     if(r){r.checked=true; freqAdvChange(p,'adv_weeks');}
     const n=document.getElementById('col-'+p+'-adv-n'); if(n) n.value=freqN||1;
+  } else if(freqUnit==='month'){
+    sel.value='month'; sel.dataset.prev='month';
+    advWrap.style.display='none';
+    if(monthWrap){
+      monthWrap.style.display='block';
+      const day=parseInt(freqN)||1;
+      document.getElementById('col-'+p+'-month-day').value=day;
+      freqRenderDayGrid(p, day);
+    }
   } else {
     const map={minute:'minute',hour:'hour',day:'day',days:'day',month:'month',manual:'manual'};
     sel.value=map[freqUnit]||'day'; sel.dataset.prev=sel.value;
     advWrap.style.display='none';
+    if(monthWrap) monthWrap.style.display='none';
   }
 }
 
@@ -1935,6 +2309,13 @@ function setupColCreate(){
 function submitCollection(){
   const name=document.getElementById('col-c-name').value.trim();
   if(!name){alert('Collection name is required.');return;}
+  // Guard: must have at least one complete condition
+  const hasAny = colCreateRules.some(function(b){return (b.conditions||[]).some(function(c){return c.field&&c.op&&(c.val||c.pickerVal);});});
+  if(!hasAny){
+    const errEl=document.getElementById('col-c-criteria-error');
+    if(errEl){errEl.style.display='flex';}
+    return;
+  }
   const extId=document.getElementById('col-c-extid').value.trim();
   const desc=document.getElementById('col-c-desc').value.trim();
   const {freqN, freqUnit} = freqGetValue('c');
@@ -1976,7 +2357,267 @@ function saveColEdit(){
   openColDetail(currentCollectionIdx);
 }
 
-/* ─── HELPERS ─── */
+/* ═══════════════════════════════════════
+   LOCATIONS
+═══════════════════════════════════════ */
+let currentLocationIdx = null;
+let editingLocationIdx = null;
+let locLabelEntryOpen = false;
+let locChips = [];
+
+const locations = [
+  {id:'LOC-001',code:'BB-MUM-001',name:'Andheri West',extId:'EXT-LOC-001',status:'Active',city:'Mumbai',state:'Maharashtra',country:'India',zip:'400053',address:'Shop 12, Infiniti Mall, Link Road',zone:'Metro',concept:'Premium',updatedOn:'28 Mar, 2026',updatedBy:'Priya Mehta',chips:[]},
+  {id:'LOC-002',code:'BB-MUM-002',name:'Bandra Kurla Complex',extId:'EXT-LOC-002',status:'Active',city:'Mumbai',state:'Maharashtra',country:'India',zip:'400051',address:'G-12, Maker Maxity, BKC',zone:'Metro',concept:'Express',updatedOn:'25 Mar, 2026',updatedBy:'Vikram Nair',chips:[]},
+  {id:'LOC-003',code:'BB-DEL-001',name:'Connaught Place',extId:'EXT-LOC-003',status:'Active',city:'New Delhi',state:'Delhi',country:'India',zip:'110001',address:'Block A, Inner Circle, CP',zone:'Metro',concept:'Premium',updatedOn:'20 Mar, 2026',updatedBy:'Rahul Sharma',chips:[]},
+  {id:'LOC-004',code:'BB-BLR-001',name:'Koramangala',extId:'EXT-LOC-004',status:'Inactive',city:'Bangalore',state:'Karnataka',country:'India',zip:'560034',address:'80 Feet Road, 4th Block',zone:'Metro',concept:'Standard',updatedOn:'15 Mar, 2026',updatedBy:'Ananya Singh',chips:[]},
+  {id:'LOC-005',code:'BB-CHN-001',name:'Anna Nagar',extId:'',status:'Active',city:'Chennai',state:'Tamil Nadu',country:'India',zip:'600040',address:'2nd Avenue, Anna Nagar',zone:'Tier 2',concept:'Standard',updatedOn:'10 Mar, 2026',updatedBy:'Deepika Rao',chips:[]},
+  {id:'LOC-006',code:'BB-HYD-001',name:'Jubilee Hills',extId:'EXT-LOC-006',status:'Active',city:'Hyderabad',state:'Telangana',country:'India',zip:'500033',address:'Road No. 36, Jubilee Hills',zone:'Metro',concept:'Premium',updatedOn:'05 Mar, 2026',updatedBy:'Siddharth Iyer',chips:[]},
+];
+
+/* Wire loc pages into goTo */
+const _origGoTo2 = goTo;
+goTo = function(page, tab){
+  if(page.startsWith('loc')){
+    csClose();
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    const el=document.getElementById('page-'+page);
+    if(!el){console.warn('page not found: page-'+page);return;}
+    el.classList.add('active');
+    document.querySelectorAll('.sidebar-sub').forEach(s=>s.classList.remove('active'));
+    document.getElementById('nav-entities').classList.add('active');
+    if(page==='loc-listing') renderLocTable();
+    if(page==='loc-create') setupLocationForm();
+    closeAllDropdowns();
+    window.scrollTo(0,0);
+  } else {
+    _origGoTo2(page,tab);
+  }
+};
+
+/* Also wire Location card in ent-cards to go to loc-listing */
+function openLocationCard(){ goTo('loc-listing'); }
+
+function renderLocTable(filter){
+  filter=filter||'';
+  const tbody=document.getElementById('loc-tbody');
+  const rows=filter?locations.filter(l=>l.name.toLowerCase().includes(filter.toLowerCase())||l.code.toLowerCase().includes(filter.toLowerCase())):locations;
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#9ca3af;padding:32px">No locations found.</td></tr>';return;}
+  tbody.innerHTML=rows.map((l,i)=>
+    '<tr onclick="openLocationView('+i+')">'+
+    '<td><div class="row-primary">'+l.name+'</div><div class="row-secondary">'+l.code+'</div></td>'+
+    '<td><div class="row-primary">'+l.city+'</div><div class="row-secondary">'+l.state+'</div></td>'+
+    '<td><div class="row-primary">'+l.zone+'</div><div class="row-secondary">'+l.concept+'</div></td>'+
+    '<td><span style="display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;'+(l.status==='Active'?'background:#f0fdf4;color:#16a34a;border-color:#86efac':'background:#f9fafb;color:#374151;border-color:#d1d5db')+'">'+l.status+'</span></td>'+
+    '<td><div class="row-primary">'+l.updatedOn+'</div><div class="row-secondary">'+l.updatedBy+'</div></td>'+
+    '<td class="ellipsis-cell" onclick="event.stopPropagation()">'+
+      '<button class="ellipsis-btn" onclick="toggleMenu(event,\'lmenu2-'+i+'\')">···</button>'+
+      '<div class="row-menu" id="lmenu2-'+i+'">'+
+        '<div class="row-menu-item" onclick="editLocation('+i+')"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</div>'+
+        '<div class="row-menu-item" onclick="showToaster(\'Location archived\',\'\')"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>Archive</div>'+
+      '</div>'+
+    '</td></tr>'
+  ).join('');
+}
+function filterLocations(v){renderLocTable(v);}
+
+function openLocationView(idx){
+  currentLocationIdx=idx;
+  const l=locations[idx];
+  document.getElementById('loc-view-title').textContent=l.name;
+  document.getElementById('lv-name').textContent=l.name||'—';
+  document.getElementById('lv-code').textContent=l.code||'—';
+  document.getElementById('lv-extid').textContent=l.extId||'—';
+  document.getElementById('lv-status').innerHTML='<span style="display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;'+(l.status==='Active'?'background:#f0fdf4;color:#16a34a;border-color:#86efac':'background:#f9fafb;color:#374151;border-color:#d1d5db')+'">'+l.status+'</span>';
+  document.getElementById('lv-city').textContent=l.city||'—';
+  document.getElementById('lv-state').textContent=l.state||'—';
+  document.getElementById('lv-country').textContent=l.country||'—';
+  document.getElementById('lv-zip').textContent=l.zip||'—';
+  document.getElementById('lv-zone').textContent=l.zone||'—';
+  document.getElementById('lv-concept').textContent=l.concept||'—';
+  document.getElementById('lv-address').textContent=l.address||'—';
+  const chips=l.chips||[];
+  const lc=document.getElementById('lv-labels-content');
+  if(chips.length){
+    lc.innerHTML='<div class="label-chips" style="margin-top:0">'+chips.map(c=>'<div class="label-chip"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>'+c.labelName+'<span class="chip-tooltip">'+c.expiryDisplay+'</span></div>').join('')+'</div>';
+  } else { lc.innerHTML='<span style="color:#9ca3af;font-size:14px">No labels assigned</span>'; }
+  goTo('loc-view');
+}
+function editCurrentLocation(){editLocation(currentLocationIdx);}
+function editLocation(idx){closeAllDropdowns();editingLocationIdx=idx;goTo('loc-create');}
+
+function setupLocationForm(){
+  const isEdit=editingLocationIdx!==null;
+  document.getElementById('loc-form-title').textContent=isEdit?'Edit location':'New location';
+  document.getElementById('loc-submit-btn').textContent=isEdit?'Save location':'Add location';
+  document.getElementById('loc-label-entry-wrap').innerHTML='';
+  locLabelEntryOpen=false;
+  document.getElementById('loc-add-label-btn').disabled=false;
+  const l=isEdit?locations[editingLocationIdx]:{};
+  locChips=isEdit&&l.chips?[...l.chips]:[];
+  renderLocChips();
+  const sOpts=[{v:'',l:'Select status'},{v:'Active',l:'Active'},{v:'Inactive',l:'Inactive'}];
+  const zOpts=[{v:'',l:'Select zone'},{v:'Metro',l:'Metro'},{v:'Tier 2',l:'Tier 2'},{v:'Tier 3',l:'Tier 3'}];
+  const cOpts=[{v:'',l:'Select concept'},{v:'Premium',l:'Premium'},{v:'Express',l:'Express'},{v:'Standard',l:'Standard'}];
+  csCreate('cs-l-status',sOpts,'Select status',l.status||'',null);
+  // Init searchable zone/concept dropdowns
+  locInitSearchDropdown('zone', ['Metro','Tier 2','Tier 3','Rural','Urban','Semi-Urban'], l.zone||'');
+  locInitSearchDropdown('concept', ['Premium','Express','Standard','Flagship','Kiosk','Pop-up'], l.concept||'');
+  if(isEdit){
+    ['l-name','l-code','l-extid','l-address','l-city','l-state','l-country','l-zip'].forEach(id=>{
+      const field=id.replace('l-','');
+      const fieldMap={'name':'name','code':'code','extid':'extId','address':'address','city':'city','state':'state','country':'country','zip':'zip'};
+      document.getElementById(id).value=l[fieldMap[field]]||'';
+    });
+  } else {
+    ['l-name','l-code','l-extid','l-address','l-city','l-state','l-country','l-zip'].forEach(id=>document.getElementById(id).value='');
+    editingLocationIdx=null;
+  }
+}
+
+/* ─── LOCATION SEARCHABLE DROPDOWNS ─── */
+const locDropdownData = {};
+
+function locInitSearchDropdown(type, options, currentVal){
+  locDropdownData[type] = options;
+  const searchEl = document.getElementById('l-'+type+'-search');
+  const valEl    = document.getElementById('l-'+type+'-val');
+  if(!searchEl) return;
+  if(currentVal && currentVal !== '—'){
+    searchEl.value = currentVal;
+    if(valEl) valEl.value = currentVal;
+  } else {
+    searchEl.value = '';
+    if(valEl) valEl.value = '';
+  }
+  locRenderList(type, options);
+}
+
+function locRenderList(type, opts){
+  const list = document.getElementById('loc-'+type+'-list');
+  if(!list) return;
+  if(!opts.length){
+    list.innerHTML='<div style="padding:10px 14px;font-size:13px;color:#9ca3af">No results</div>';
+    return;
+  }
+  const currentVal = document.getElementById('l-'+type+'-val').value;
+  list.innerHTML = opts.map(function(o){
+    const isSel = o === currentVal;
+    return '<div onclick="locPickOption(\''+type+'\',\''+o+'\')" style="padding:10px 14px;font-size:13px;cursor:pointer;color:'+(isSel?'#1a73e8':'#374151')+';font-weight:'+(isSel?'600':'400')+';background:'+(isSel?'#f0f4ff':'transparent')+'" onmouseover="this.style.background=\''+(isSel?'#e8f0fe':'#f5f6fa')+'\'" onmouseout="this.style.background=\''+(isSel?'#f0f4ff':'transparent')+'\'">'+o+'</div>';
+  }).join('');
+}
+
+function locOpenDropdown(type){
+  // Close the other one first
+  const other = type==='zone'?'concept':'zone';
+  document.getElementById('loc-'+other+'-dropdown').style.display='none';
+  document.getElementById('loc-'+type+'-dropdown').style.display='block';
+  const q = document.getElementById('l-'+type+'-search').value.trim().toLowerCase();
+  const filtered = (locDropdownData[type]||[]).filter(function(o){ return !q || o.toLowerCase().includes(q); });
+  locRenderList(type, filtered);
+}
+
+function locSearchDropdown(type, val){
+  const q = val.trim().toLowerCase();
+  const filtered = (locDropdownData[type]||[]).filter(function(o){ return !q || o.toLowerCase().includes(q); });
+  document.getElementById('loc-'+type+'-dropdown').style.display='block';
+  locRenderList(type, filtered);
+  // Clear hidden val if user is typing new text
+  if(val !== document.getElementById('l-'+type+'-val').value){
+    document.getElementById('l-'+type+'-val').value='';
+  }
+}
+
+function locPickOption(type, val){
+  document.getElementById('l-'+type+'-search').value = val;
+  document.getElementById('l-'+type+'-val').value   = val;
+  document.getElementById('loc-'+type+'-dropdown').style.display='none';
+}
+
+function locAddNew(type){
+  const input = document.getElementById('l-'+type+'-search');
+  const name  = input.value.trim();
+  if(!name){ input.focus(); return; }
+  if(!(locDropdownData[type]||[]).includes(name)){
+    (locDropdownData[type] = locDropdownData[type]||[]).push(name);
+  }
+  locPickOption(type, name);
+}
+
+// Close loc dropdowns when clicking outside
+document.addEventListener('click', function(e){
+  ['zone','concept'].forEach(function(type){
+    const wrap = document.getElementById('loc-'+type+'-wrap');
+    const dd   = document.getElementById('loc-'+type+'-dropdown');
+    if(dd && wrap && !wrap.contains(e.target)) dd.style.display='none';
+  });
+});
+
+function submitLocation(){
+  const name=document.getElementById('l-name').value.trim();
+  if(!name){alert('Store name is required.');return;}
+  const code=document.getElementById('l-code').value.trim();
+  if(!code){alert('Store code is required.');return;}
+  const data={
+    id:'LOC-'+(100+locations.length+1),
+    code, name,
+    extId:document.getElementById('l-extid').value.trim(),
+    status:csGet('cs-l-status')||'Active',
+    address:document.getElementById('l-address').value.trim(),
+    city:document.getElementById('l-city').value.trim(),
+    state:document.getElementById('l-state').value.trim(),
+    country:document.getElementById('l-country').value.trim(),
+    zip:document.getElementById('l-zip').value.trim(),
+    zone:document.getElementById('l-zone-val').value||'—',
+    concept:document.getElementById('l-concept-val').value||'—',
+    updatedOn:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}),
+    updatedBy:'You',
+    chips:[...locChips]
+  };
+  if(editingLocationIdx!==null){
+    locations[editingLocationIdx]={...locations[editingLocationIdx],...data};
+    showToaster('Location updated',name);
+  } else {
+    locations.push(data);
+    showToaster('Location created',name);
+  }
+  editingLocationIdx=null;
+  goTo('loc-listing');
+}
+
+function showLocLabelEntry(){
+  if(locLabelEntryOpen) return;
+  locLabelEntryOpen=true;
+  document.getElementById('loc-add-label-btn').disabled=true;
+  const wrap=document.getElementById('loc-label-entry-wrap');
+  const lOpts=[{v:'',l:'Select label'},{v:'cool_stuff',l:'Cool Stuff'},{v:'clearance',l:'Clearance'},{v:'flash',l:'Flash Sale'},{v:'vip',l:'VIP Member'}];
+  const eOpts=[{v:'',l:'Select duration'},{v:'same_as_label',l:'Same as label'},{v:'never_expire',l:'Never expire'}];
+  wrap.innerHTML='<div class="label-entry"><div class="label-entry-row">'+
+    '<div class="label-entry-col"><label class="form-label" style="font-size:13px;font-weight:600;color:#111827;margin-bottom:0">Label name</label><div class="cs-wrap" id="cs-ll-label"></div></div>'+
+    '<div class="label-entry-col"><label class="form-label" style="font-size:13px;font-weight:600;color:#111827;margin-bottom:0">Expiry</label><div class="cs-wrap" id="cs-ll-expiry"></div></div>'+
+    '</div><div class="label-entry-actions">'+
+    '<button class="btn-outline" onclick="cancelLocLabelEntry()" style="padding:7px 16px;font-size:13px">Cancel</button>'+
+    '<button class="btn-green" id="ll-confirm-btn" onclick="confirmLocLabelEntry()" style="padding:7px 16px;font-size:13px" disabled>Confirm</button>'+
+    '</div></div>';
+  setTimeout(()=>{
+    csCreate('cs-ll-label',lOpts,'Select label','',function(v){checkLLConfirm();});
+    csCreate('cs-ll-expiry',eOpts,'Select duration','',function(v){checkLLConfirm();});
+  },0);
+}
+function checkLLConfirm(){const btn=document.getElementById('ll-confirm-btn');if(btn) btn.disabled=!(csGet('cs-ll-label')&&csGet('cs-ll-expiry'));}
+function cancelLocLabelEntry(){locLabelEntryOpen=false;document.getElementById('loc-label-entry-wrap').innerHTML='';document.getElementById('loc-add-label-btn').disabled=false;csClose();}
+function confirmLocLabelEntry(){
+  const lv=csGet('cs-ll-label'),ev=csGet('cs-ll-expiry');if(!lv||!ev) return;
+  const lNames={cool_stuff:'Cool Stuff',clearance:'Clearance',flash:'Flash Sale',vip:'VIP Member'};
+  const expD={same_as_label:'Same as label',never_expire:'Never expire'};
+  locChips.push({labelName:lNames[lv]||lv,expiry:ev,expiryDisplay:expD[ev]||ev});
+  cancelLocLabelEntry(); renderLocChips();
+}
+function renderLocChips(){
+  const wrap=document.getElementById('loc-label-chips'); if(!wrap) return;
+  wrap.innerHTML=locChips.map((c,i)=>'<div class="label-chip"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>'+c.labelName+'<span class="chip-tooltip">'+c.expiryDisplay+'</span><button class="chip-remove" onclick="removeLocChip('+i+')">×</button></div>').join('');
+}
+function removeLocChip(idx){locChips.splice(idx,1);renderLocChips();}
+
 function updateCharCount(inputId, countId, max){
   const el=document.getElementById(inputId); const ct=document.getElementById(countId);
   if(el&&ct) ct.textContent=el.value.length;
