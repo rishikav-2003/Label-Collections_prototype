@@ -368,17 +368,17 @@ tbody tr.row-selected{background:#f0f9ff}
         <div class="search-wrap"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input class="search-input" placeholder="Search by label name and IDs..." oninput="filterLabels(this.value)"/></div>
         <!-- Status chip filter -->
         <div style="position:relative">
-          <button id="lbl-status-chip" onclick="toggleLblStatusDrop()"
+          <button id="lbl-status-chip-old" onclick="void(0)"
             style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid #d1d5db;border-radius:20px;background:#fff;font-size:13px;font-weight:500;color:#374151;cursor:pointer;transition:all 0.15s;white-space:nowrap">
             Status
             <svg id="lbl-status-chev" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="transition:transform 0.2s"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div id="lbl-status-drop" style="display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:9000;min-width:160px;overflow:hidden">
-            <div class="row-menu-item" id="lbl-sf-all"    onclick="setLblStatusFilter('')"            style="font-weight:500">All</div>
-            <div class="row-menu-item" id="lbl-sf-active" onclick="setLblStatusFilter('active')">
+          <div id="lbl-status-drop-old" style="display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:9000;min-width:160px;overflow:hidden">
+            <div class="row-menu-item" id="lbl-sf-all-old"    onclick="void(0)"            style="font-weight:500">All</div>
+            <div class="row-menu-item" id="lbl-sf-active-old" onclick="void(0)">
               <span style="width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:4px"></span>Active
             </div>
-            <div class="row-menu-item" id="lbl-sf-deact"  onclick="setLblStatusFilter('deactivated')">
+            <div class="row-menu-item" id="lbl-sf-deact-old"  onclick="void(0)">
               <span style="width:8px;height:8px;border-radius:50%;background:#9ca3af;display:inline-block;margin-right:4px"></span>Deactivated
             </div>
           </div>
@@ -2023,7 +2023,7 @@ const labelNames = ['Summer Clearance','Flash Sale','New Arrival','Winter Sale',
 
 function makeLbl(i, entity) {
   const nm = labelNames[i % labelNames.length] + (i >= labelNames.length ? ' ' + (Math.floor(i/labelNames.length)+1) : '');
-  return {id:'LC-'+(10020+i), extId:'EXT-'+String(i+1).padStart(3,'0'), name:nm, desc:'Label description '+i, entity, expiry:expiryKeys[i%expiryKeys.length], updatedBy:users[i%users.length], updatedAt:'Mar '+(1+i%28)+', 2025'};
+  return {id:'LC-'+(10020+i), extId:'EXT-'+String(i+1).padStart(3,'0'), name:nm, desc:'Label description '+i, entity, expiry:expiryKeys[i%expiryKeys.length], updatedBy:users[i%users.length], updatedAt:'Mar '+(1+i%28)+', 2025', status:'active'};
 }
 let labels = [...Array(50)].map((_,i)=>makeLbl(i,'Product'));
 labels.push(...[...Array(15)].map((_,i)=>makeLbl(i,'Customers')));
@@ -2193,7 +2193,8 @@ function confirmDeactivateLabel(){
   var lbl = labels.find(function(l){ return l.id===_lblDeactivateId; });
   if(lbl){ lbl.status = 'deactivated'; }
   closeAllModals();
-  renderLblTable();
+  _lblStatusFilter = '';
+  setLblStatusFilter('');
   showToaster('Label deactivated', lbl ? lbl.name : '');
 }
 
@@ -2201,7 +2202,8 @@ function activateLabel(id){
   closeAllDropdowns();
   var lbl = labels.find(function(l){ return l.id===id; });
   if(lbl){ lbl.status = 'active'; }
-  renderLblTable();
+  _lblStatusFilter = '';
+  setLblStatusFilter('');
   showToaster('Label activated', lbl ? lbl.name : '');
 }
 
