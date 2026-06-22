@@ -555,15 +555,15 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
       <div style="font-size:20px;font-weight:700;color:#111827;margin-bottom:3px">Labels</div>
       <div style="font-size:13px;color:#6b7280;margin-bottom:24px">Manage metadata labels applied to your entities</div>
       <div class="cards-grid">
-        <div class="entity-card" onclick="goTo('lbl-listing','Product')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="card-name">Product</div><div class="card-desc">Labels applied to product entities</div></div>
+        <div class="entity-card" onclick="goTo('lbl-listing','Product')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="card-name">Products</div><div class="card-desc">Labels applied to products</div></div>
         
-        <div class="entity-card" onclick="goTo('lbl-listing','Location')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-name">Location</div><div class="card-desc">Labels applied to location entities</div></div>
+        <div class="entity-card" onclick="goTo('lbl-listing','Location')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-name">Locations</div><div class="card-desc">Labels applied to locations</div></div>
       </div>
     </div>
 
     <!-- LABELS: Listing -->
     <div class="page" id="page-lbl-listing">
-      <div class="back-row"><div class="back-arrow-btn" onclick="goTo('lbl-cards')"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div><div class="page-title" id="lbl-entity-title">Product</div></div>
+      <div class="back-row"><div class="back-arrow-btn" onclick="goTo('lbl-cards')"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div><div class="page-title" id="lbl-entity-title">Products</div></div>
       <div class="page-sub">Labels</div>
       <div class="toolbar">
         <div class="search-wrap"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input class="search-input" placeholder="Search by name and external ID" oninput="filterLabels(this.value)"/></div>
@@ -679,7 +679,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
 
     <!-- LABELS: Archived -->
     <div class="page" id="page-lbl-archived">
-      <div class="back-row" style="margin-bottom:4px"><div class="back-arrow-btn" onclick="goTo('lbl-listing',currentLblTab)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div><div class="page-title">Archived Labels</div></div>
+      <div class="back-row" style="margin-bottom:4px"><div class="back-arrow-btn" onclick="goTo('lbl-listing',currentLblTab)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div><div class="page-title">Archived labels</div></div>
       <div class="page-sub">Labels that have been archived</div>
       <div class="toolbar" style="margin-bottom:0">
         <div style="flex:1"></div>
@@ -703,7 +703,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
     <!-- LABELS: Audit -->
     <div class="page" id="page-lbl-audit">
       <div class="detail-wrap">
-        <div class="back-row" style="margin-bottom:4px"><div class="back-arrow-btn" onclick="goTo('lbl-listing',currentLblTab)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div><div class="page-title">Audit Logs</div></div>
+        <div class="back-row" style="margin-bottom:4px"><div class="back-arrow-btn" onclick="goTo('lbl-listing',currentLblTab)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div><div class="page-title">Audit logs</div></div>
         <div class="page-sub" style="margin-bottom:20px">Track all actions performed on labels and assignments</div>
         <div id="audit-log-container"></div>
       </div>
@@ -910,7 +910,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
   <div class="back-row" style="margin-bottom:2px;display:flex;align-items:flex-start;gap:10px">
     <div class="back-arrow-btn" onclick="goTo('ent-cards')"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div>
     <div style="flex:1">
-      <div class="page-title">Customer</div>
+      <div class="page-title">Customers</div>
       <div style="font-size:13px;color:#6b7280;margin-top:2px">Manage customer labels and configurations across registration, status and subscriptions</div>
     </div>
     <div style="display:flex;align-items:center;gap:10px">
@@ -1068,9 +1068,9 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
       </div>
       <div style="font-size:13px;color:#6b7280;margin-bottom:24px">Lorem ipsum</div>
       <div class="cards-grid">
-        <div class="entity-card" onclick="goTo('ent-listing','skus')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="card-name">Product</div><div class="card-desc">View and manage your product data.</div></div>
-        <div class="entity-card" onclick="goTo('loc-listing')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-name">Location</div><div class="card-desc">View and manage your location data.</div></div>
-        <div class="entity-card" onclick="goTo('cust-listing')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="card-name">Customer</div><div class="card-desc">View and manage your customer data.</div></div>
+        <div class="entity-card" onclick="goTo('ent-listing','skus')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="card-name">Products</div><div class="card-desc">View and manage your products.</div></div>
+        <div class="entity-card" onclick="goTo('loc-listing')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-name">Locations</div><div class="card-desc">View and manage your locations.</div></div>
+        <div class="entity-card" onclick="goTo('cust-listing')"><div class="card-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="card-name">Customers</div><div class="card-desc">View and manage your customers.</div></div>
       </div>
     </div>
 
@@ -5296,11 +5296,11 @@ var _orgAuditChangeLogOnly = false; // per-instance change log mode
 var _orgAuditChangeLogEntity = '';
 
 var _MODULE_SCOPE_LABEL = {
-  product:    'Product',
-  location:   'Location',
-  customer:   'Customer',
-  collection: 'Collection',
-  promotion:  'Promotion',
+  product:    'Products',
+  location:   'Locations',
+  customer:   'Customers',
+  collection: 'Collections',
+  promotion:  'Promotions',
 };
 
 /* Pretty-print a JSON object with light-blue highlight on any from/to lines
@@ -5368,7 +5368,7 @@ const consolidatedAuditLogs = [
   { id:'#6207401', occurredAt:'May 22, 2026 5:22 PM', occurredSort:1747938120,
     scope:'product', action:'Update', icon:'edit',
     description:'Office Wi-Fi Access was sent for approval',
-    entityName:'Office Wi-Fi Access', entityType:'SKU', entitySubModule:'Product',
+    entityName:'Office Wi-Fi Access', entityType:'SKU', entitySubModule:'Products',
     module:'Data Management',
     performedBy:'Priya Mehta', performedByEmail:'priya.mehta@allensolly.com',
     json:{ actor:{ id:'923992004', name:'Priya Mehta', email:'priya.mehta@allensolly.com', user_type:'Catalog Manager' },
@@ -5381,7 +5381,7 @@ const consolidatedAuditLogs = [
   { id:'#6207402', occurredAt:'May 18, 2026 10:48 AM', occurredSort:1747560480,
     scope:'product', action:'Update', icon:'edit',
     description:'Office Wi-Fi Access status was made Live',
-    entityName:'Office Wi-Fi Access', entityType:'SKU', entitySubModule:'Product',
+    entityName:'Office Wi-Fi Access', entityType:'SKU', entitySubModule:'Products',
     module:'Data Management',
     performedBy:'Rick Sanchez', performedByEmail:'rick.sanchez@allensolly.com',
     json:{ actor:{ id:'923992001', name:'Rick Sanchez', email:'rick.sanchez@allensolly.com', user_type:'Org Admin' },
@@ -5393,7 +5393,7 @@ const consolidatedAuditLogs = [
   { id:'#6207403', occurredAt:'Feb 23, 2026 12:30 PM', occurredSort:1740314400,
     scope:'product', action:'Create', icon:'plus',
     description:'A new SKU was created',
-    entityName:'Office Wi-Fi Access', entityType:'SKU', entitySubModule:'Product',
+    entityName:'Office Wi-Fi Access', entityType:'SKU', entitySubModule:'Products',
     module:'Data Management',
     performedBy:'Rick Sanchez', performedByEmail:'rick.sanchez@allensolly.com',
     json:{ actor:{ id:'923992001', name:'Rick Sanchez', email:'rick.sanchez@allensolly.com', user_type:'Org Admin' },
@@ -5403,7 +5403,7 @@ const consolidatedAuditLogs = [
   { id:'#6207404', occurredAt:'May 10, 2026 3:14 PM', occurredSort:1746889640,
     scope:'product', action:'Update', icon:'edit',
     description:'Brand parent was updated on Nike',
-    entityName:'Nike', entityType:'Brand', entitySubModule:'Product',
+    entityName:'Nike', entityType:'Brand', entitySubModule:'Products',
     module:'Data Management',
     performedBy:'Priya Mehta', performedByEmail:'priya.mehta@allensolly.com',
     json:{ actor:{ id:'923992004', name:'Priya Mehta', email:'priya.mehta@allensolly.com', user_type:'Catalog Manager' },
@@ -5414,7 +5414,7 @@ const consolidatedAuditLogs = [
   { id:'#6207405', occurredAt:'Apr 02, 2026 11:00 AM', occurredSort:1743591600,
     scope:'product', action:'Delete', icon:'trash',
     description:'A category was archived',
-    entityName:'Outdated Network', entityType:'Category', entitySubModule:'Product',
+    entityName:'Outdated Network', entityType:'Category', entitySubModule:'Products',
     module:'Data Management',
     performedBy:'Rick Sanchez', performedByEmail:'rick.sanchez@allensolly.com',
     json:{ actor:{ id:'923992001', name:'Rick Sanchez', email:'rick.sanchez@allensolly.com', user_type:'Org Admin' },
@@ -5425,7 +5425,7 @@ const consolidatedAuditLogs = [
   { id:'#6207406', occurredAt:'Jan 25, 2025 12:30 PM', occurredSort:1737793800,
     scope:'product', action:'Delete', icon:'trash',
     description:'A label was archived',
-    entityName:'Summer Clearance', entityType:'Label', entitySubModule:'Product',
+    entityName:'Summer Clearance', entityType:'Label', entitySubModule:'Products',
     module:'Data Management',
     performedBy:'Harsh Deo', performedByEmail:'harsh.deo@allensolly.com',
     json:{ actor:{ id:'923992007', name:'Harsh Deo', email:'harsh.deo@allensolly.com', user_type:'Catalog Manager' },
@@ -5438,7 +5438,7 @@ const consolidatedAuditLogs = [
   { id:'#6207430', occurredAt:'May 02, 2026 6:40 PM', occurredSort:1746197400,
     scope:'location', action:'Update', icon:'edit',
     description:'A store location was deactivated',
-    entityName:'Indiranagar 04', entityType:'Store', entitySubModule:'Location',
+    entityName:'Indiranagar 04', entityType:'Store', entitySubModule:'Locations',
     module:'Data Management',
     performedBy:'Rahul Sharma', performedByEmail:'rahul.sharma@allensolly.com',
     json:{ actor:{ id:'923992006', name:'Rahul Sharma', email:'rahul.sharma@allensolly.com', user_type:'Ops Lead' },
@@ -5449,7 +5449,7 @@ const consolidatedAuditLogs = [
   { id:'#6207431', occurredAt:'Apr 14, 2026 2:50 PM', occurredSort:1744621800,
     scope:'location', action:'Create', icon:'plus',
     description:'A new store was created',
-    entityName:'Koramangala 7B', entityType:'Store', entitySubModule:'Location',
+    entityName:'Koramangala 7B', entityType:'Store', entitySubModule:'Locations',
     module:'Data Management',
     performedBy:'Rahul Sharma', performedByEmail:'rahul.sharma@allensolly.com',
     json:{ actor:{ id:'923992006', name:'Rahul Sharma', email:'rahul.sharma@allensolly.com', user_type:'Ops Lead' },
@@ -5459,7 +5459,7 @@ const consolidatedAuditLogs = [
   { id:'#6207432', occurredAt:'Mar 06, 2026 9:18 AM', occurredSort:1741231080,
     scope:'location', action:'Update', icon:'edit',
     description:'Zone hierarchy was updated on South India',
-    entityName:'South India', entityType:'Zone', entitySubModule:'Location',
+    entityName:'South India', entityType:'Zone', entitySubModule:'Locations',
     module:'Data Management',
     performedBy:'Rick Sanchez', performedByEmail:'rick.sanchez@allensolly.com',
     json:{ actor:{ id:'923992001', name:'Rick Sanchez', email:'rick.sanchez@allensolly.com', user_type:'Org Admin' },
@@ -5472,7 +5472,7 @@ const consolidatedAuditLogs = [
   { id:'#6207420', occurredAt:'May 14, 2026 9:15 AM', occurredSort:1747212900,
     scope:'customer', action:'Update', icon:'edit',
     description:'A label was assigned to a customer',
-    entityName:'Ananya Reddy', entityType:'Customer', entitySubModule:'Customer',
+    entityName:'Ananya Reddy', entityType:'Customer', entitySubModule:'Customers',
     module:'Data Management',
     performedBy:'Vikram Nair', performedByEmail:'vikram.nair@allensolly.com',
     json:{ actor:{ id:'923992005', name:'Vikram Nair', email:'vikram.nair@allensolly.com', user_type:'CRM Manager' },
@@ -5483,7 +5483,7 @@ const consolidatedAuditLogs = [
   { id:'#6207421', occurredAt:'Apr 28, 2026 4:02 PM', occurredSort:1745832120,
     scope:'customer', action:'Create', icon:'plus',
     description:'A new customer label was created',
-    entityName:'VIP Tier', entityType:'Customer label', entitySubModule:'Customer',
+    entityName:'VIP Tier', entityType:'Customer label', entitySubModule:'Customers',
     module:'Data Management',
     performedBy:'Vikram Nair', performedByEmail:'vikram.nair@allensolly.com',
     json:{ actor:{ id:'923992005', name:'Vikram Nair', email:'vikram.nair@allensolly.com', user_type:'CRM Manager' },
@@ -5493,7 +5493,7 @@ const consolidatedAuditLogs = [
   { id:'#6207422', occurredAt:'Feb 11, 2026 11:40 AM', occurredSort:1739268000,
     scope:'customer', action:'Approve', icon:'check',
     description:'A customer merge request was approved',
-    entityName:'Ananya Reddy', entityType:'Customer', entitySubModule:'Customer',
+    entityName:'Ananya Reddy', entityType:'Customer', entitySubModule:'Customers',
     module:'Data Management',
     performedBy:'Beth Smith', performedByEmail:'beth.smith@allensolly.com',
     json:{ actor:{ id:'923992002', name:'Beth Smith', email:'beth.smith@allensolly.com', user_type:'Approver' },
@@ -5504,7 +5504,7 @@ const consolidatedAuditLogs = [
   { id:'#6207423', occurredAt:'Feb 08, 2026 5:30 PM', occurredSort:1739014200,
     scope:'customer', action:'Reject', icon:'x',
     description:'A customer label deactivation was rejected',
-    entityName:'Gold', entityType:'Customer label', entitySubModule:'Customer',
+    entityName:'Gold', entityType:'Customer label', entitySubModule:'Customers',
     module:'Data Management',
     performedBy:'Beth Smith', performedByEmail:'beth.smith@allensolly.com',
     json:{ actor:{ id:'923992002', name:'Beth Smith', email:'beth.smith@allensolly.com', user_type:'Approver' },
@@ -5678,7 +5678,7 @@ const consolidatedAuditLogs = [
   { id:'#6207460', occurredAt:'May 25, 2026 8:00 AM', occurredSort:1748160000,
     scope:'collection', action:'Update', icon:'edit',
     description:'Refresh frequency was updated on Summer Clearance',
-    entityName:'Summer Clearance', entityType:'Product collection', entitySubModule:'Collection',
+    entityName:'Summer Clearance', entityType:'Product collection', entitySubModule:'Collections',
     module:'Data Management',
     performedBy:'Priya Mehta', performedByEmail:'priya.mehta@allensolly.com',
     json:{ actor:{ id:'923992004', name:'Priya Mehta', email:'priya.mehta@allensolly.com', user_type:'Catalog Manager' },
@@ -5689,7 +5689,7 @@ const consolidatedAuditLogs = [
   { id:'#6207461', occurredAt:'Mar 25, 2026 10:15 AM', occurredSort:1742900100,
     scope:'collection', action:'Create', icon:'plus',
     description:'A new product collection was created',
-    entityName:'Summer Clearance', entityType:'Product collection', entitySubModule:'Collection',
+    entityName:'Summer Clearance', entityType:'Product collection', entitySubModule:'Collections',
     module:'Data Management',
     performedBy:'Vikram Nair', performedByEmail:'vikram.nair@allensolly.com',
     json:{ actor:{ id:'923992005', name:'Vikram Nair', email:'vikram.nair@allensolly.com', user_type:'CRM Manager' },
@@ -5699,7 +5699,7 @@ const consolidatedAuditLogs = [
   { id:'#6207462', occurredAt:'Feb 04, 2026 1:45 PM', occurredSort:1738668300,
     scope:'collection', action:'Update', icon:'edit',
     description:'Rule was updated on Bangalore Stores',
-    entityName:'Bangalore Stores', entityType:'Location collection', entitySubModule:'Collection',
+    entityName:'Bangalore Stores', entityType:'Location collection', entitySubModule:'Collections',
     module:'Data Management',
     performedBy:'Rahul Sharma', performedByEmail:'rahul.sharma@allensolly.com',
     json:{ actor:{ id:'923992006', name:'Rahul Sharma', email:'rahul.sharma@allensolly.com', user_type:'Ops Lead' },
@@ -5710,7 +5710,7 @@ const consolidatedAuditLogs = [
   { id:'#6207463', occurredAt:'Jan 12, 2026 9:30 AM', occurredSort:1736664600,
     scope:'collection', action:'Delete', icon:'trash',
     description:'A collection was deleted',
-    entityName:'Q3 Clearance', entityType:'Product collection', entitySubModule:'Collection',
+    entityName:'Q3 Clearance', entityType:'Product collection', entitySubModule:'Collections',
     module:'Data Management',
     performedBy:'Harsh Deo', performedByEmail:'harsh.deo@allensolly.com',
     json:{ actor:{ id:'923992007', name:'Harsh Deo', email:'harsh.deo@allensolly.com', user_type:'Catalog Manager' },
