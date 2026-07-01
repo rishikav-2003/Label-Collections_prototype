@@ -1043,8 +1043,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
           <button class="btn-green" onclick="goTo('cust-lbl-create')">+ Create label</button>
           <div class="btn-dots" id="cust-lbl-dots" onclick="toggleDotsMenu(event,'cust-lbl-menu','cust-lbl-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
           <div class="dots-dropdown" id="cust-lbl-menu">
-            <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('customer-labels')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload labels</div>
-            <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('customer-labels')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove labels</div>
+            <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('customer-labels')">Bulk actions</div>
             <div class="dots-dropdown-item" onclick="closeAllDropdowns();openModuleAuditLog('customer','cust-listing')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Audit logs</div>
           </div>
         </div>
@@ -1223,14 +1222,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
               <span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span>
             </div>
             <div class="dots-dropdown" id="ent-skus-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntBulk('skus')">
-                <span class="material-symbols-outlined" style="font-size:16px">upload</span>
-                Bulk upload SKUs
-              </div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('skus')">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                Bulk remove SKUs
-              </div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('skus')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1248,8 +1240,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openBrandCreatePage()">+ New brand</button>
             <div class="btn-dots" id="ent-brands-dots" onclick="toggleDotsMenu(event,'ent-brands-menu','ent-brands-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="ent-brands-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntBulk('brands')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload brands</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('brands')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove brands</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('brands')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1273,8 +1264,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openCatCreatePage()">+ New category</button>
             <div class="btn-dots" id="ent-cats-dots" onclick="toggleDotsMenu(event,'ent-cats-menu','ent-cats-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="ent-cats-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('categories')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload categories</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('categories')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove categories</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('categories')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1298,8 +1288,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openSidePanel('attribute')">+ New attribute</button>
             <div class="btn-dots" id="ent-attrs-dots" onclick="toggleDotsMenu(event,'ent-attrs-menu','ent-attrs-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="ent-attrs-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('attributes')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload attributes</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('attributes')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove attributes</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('attributes')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1335,8 +1324,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="goTo('lbl-create')">+ Create Label</button>
             <div class="btn-dots" id="ent-lbl-dots" onclick="toggleDotsMenu(event,'ent-lbl-menu','ent-lbl-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="ent-lbl-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntBulk('labels')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload labels</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('labels')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove labels</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('labels')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1774,8 +1762,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openNewStorePage()">+ New store</button>
             <div class="btn-dots" id="loc-stores-dots" onclick="toggleDotsMenu(event,'loc-stores-menu','loc-stores-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="loc-stores-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('stores')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload stores</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('stores')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove stores</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('stores')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1812,8 +1799,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openZoneCreatePage()">+ New zone</button>
             <div class="btn-dots" id="loc-zones-dots" onclick="toggleDotsMenu(event,'loc-zones-menu','loc-zones-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="loc-zones-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('zones')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload zones</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('zones')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove zones</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('zones')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1859,8 +1845,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openConceptCreatePage()">+ New concept</button>
             <div class="btn-dots" id="loc-concepts-dots" onclick="toggleDotsMenu(event,'loc-concepts-menu','loc-concepts-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="loc-concepts-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('concepts')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload concepts</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('concepts')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove concepts</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('concepts')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1907,8 +1892,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openLocTillPanel()">+ New till</button>
             <div class="btn-dots" id="loc-tills-dots" onclick="toggleDotsMenu(event,'loc-tills-menu','loc-tills-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="loc-tills-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('tills')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload tills</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('tills')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove tills</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('tills')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -1934,8 +1918,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <button class="btn-green" onclick="openLocLabelCreate()">+ Create label</button>
             <div class="btn-dots" id="loc-labels-dots" onclick="toggleDotsMenu(event,'loc-labels-menu','loc-labels-dots')"><span class="material-symbols-outlined" style="font-size:20px;color:#374151">more_vert</span></div>
             <div class="dots-dropdown" id="loc-labels-menu">
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkUploadModal('location-labels')"><span class="material-symbols-outlined" style="font-size:16px">upload</span> Bulk upload labels</div>
-              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openEntRemove('location-labels')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Bulk remove labels</div>
+              <div class="dots-dropdown-item" onclick="closeAllDropdowns();openBulkActions('location-labels')">Bulk actions</div>
             </div>
           </div>
         </div>
@@ -2809,6 +2792,13 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
           </div>
         </div>
 
+        <!-- Upload-order note (hierarchical entities only) -->
+        <div id="ebulk-order-note" style="display:none;align-items:center;gap:10px;background:#FFF7E6;border:1px solid #FFE0A6;border-radius:8px;padding:10px 14px;margin-bottom:20px;max-width:1080px">
+          <svg width="18" height="18" fill="none" stroke="#B7791F" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span id="ebulk-order-text" style="font-size:13px;font-weight:500;color:#7A4F01;flex:1"></span>
+          <a href="#" onclick="openOrderModal();return false;" style="font-size:13px;font-weight:600;color:#2466EA;text-decoration:none;white-space:nowrap;flex-shrink:0">View upload order</a>
+        </div>
+
         <div style="font-size:17px;font-weight:700;color:#091E42;margin-bottom:3px">CSV file</div>
         <div id="ebulk-csvsub" style="font-size:13px;color:#97A0AF;margin-bottom:22px"></div>
 
@@ -2842,11 +2832,15 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:14px">
                   <div style="width:28px;height:28px;border-radius:50%;background:#F4F5F7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#172B4D;flex-shrink:0">2</div>
-                  <span style="font-size:14px;color:#172B4D;padding-top:4px;line-height:1.5">First row contains the column headers, please don't change the headers or the order of the columns</span>
+                  <span id="ebulk-instr2" style="font-size:14px;color:#172B4D;padding-top:4px;line-height:1.5"></span>
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:14px">
                   <div style="width:28px;height:28px;border-radius:50%;background:#F4F5F7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#172B4D;flex-shrink:0">3</div>
-                  <span style="font-size:14px;color:#172B4D;padding-top:4px;line-height:1.5">Fill the mandatory details and upload single CSV format file, <span id="ebulk-instr-limit"></span></span>
+                  <span id="ebulk-instr3" style="font-size:14px;color:#172B4D;padding-top:4px;line-height:1.5"></span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:14px">
+                  <div style="width:28px;height:28px;border-radius:50%;background:#F4F5F7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#172B4D;flex-shrink:0">4</div>
+                  <span id="ebulk-instr4" style="font-size:14px;color:#172B4D;padding-top:4px;line-height:1.5"></span>
                 </div>
               </div>
             </div>
@@ -2880,6 +2874,41 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
           </div>
         </div>
 
+      </div></div>
+    </div>
+
+    <!-- GENERIC: Bulk actions chooser (Add / Remove) -->
+    <style>
+    .ba-card{flex:1;border:1px solid #DFE1E6;border-radius:8px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:border-color .12s,background .12s;background:#fff}
+    .ba-card:hover{background:#FAFBFC}
+    .ba-card.sel{border-color:#42B040}
+    .ba-radio{width:18px;height:18px;border:2px solid #C1C7D0;border-radius:50%;flex-shrink:0;margin-top:1px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;transition:border-color .12s}
+    .ba-card.sel .ba-radio{border-color:#42B040}
+    .ba-card.sel .ba-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#42B040}
+    .ba-t{display:block;font-size:15px;font-weight:600;color:#091E42;margin-bottom:4px}
+    .ba-d{display:block;font-size:13px;color:#6B7280;line-height:1.5}
+    </style>
+    <div class="page" id="page-ent-bulk-choose">
+      <div class="page-outer-scroll" style="padding:0"><div style="margin:0;padding:28px 40px 28px 78px;max-width:1358px">
+        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:30px;margin-left:-38px">
+          <div class="back-arrow-btn" onclick="entBulkBack()" style="margin-top:1px"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div>
+          <div>
+            <div id="bachoose-title" style="font-size:26px;font-weight:700;color:#091E42;line-height:1.15">Bulk actions</div>
+            <div style="font-size:13px;color:#97A0AF;margin-top:3px">Choose whether to add or remove records in bulk</div>
+          </div>
+        </div>
+        <div style="font-size:15px;font-weight:700;color:#091E42;margin-bottom:14px">Action type</div>
+        <div style="display:flex;gap:20px;max-width:1080px">
+          <label class="ba-card" id="bacard-add" onclick="baSelect('add')">
+            <span class="ba-radio"></span>
+            <span><span class="ba-t" id="bachoose-add-title">Add records</span><span class="ba-d" id="bachoose-add-desc">Upload a CSV file to add new records in bulk.</span></span>
+          </label>
+          <label class="ba-card" id="bacard-remove" onclick="baSelect('remove')">
+            <span class="ba-radio"></span>
+            <span><span class="ba-t" id="bachoose-remove-title">Remove records</span><span class="ba-d" id="bachoose-remove-desc">Upload a CSV file to remove existing records in bulk.</span></span>
+          </label>
+        </div>
+        <button id="bachoose-continue" class="btn-green" style="margin-top:28px;opacity:.55;cursor:not-allowed" disabled onclick="bulkActionsContinue()">Continue</button>
       </div></div>
     </div>
 
@@ -3780,6 +3809,28 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
       <button onclick="doEntRemove()" style="padding:10px 20px;font-size:14px;font-weight:600;color:#fff;background:#E83135;border:none;border-radius:4px;cursor:pointer" onmouseover="this.style.background='#CF2020'" onmouseout="this.style.background='#E83135'">Yes, remove</button>
       <button onclick="closeEntRemoveModal()" style="padding:10px 20px;font-size:14px;font-weight:600;color:#172B4D;background:#EBECF0;border:none;border-radius:4px;cursor:pointer" onmouseover="this.style.background='#DFE1E6'" onmouseout="this.style.background='#EBECF0'">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- Upload-order modal (entity-aware) -->
+<style>
+.uo-steps{position:relative;margin:4px 0 2px}
+.uo-step{position:relative;display:flex;gap:14px;padding-bottom:18px}
+.uo-step:last-child{padding-bottom:0}
+.uo-step::before{content:'';position:absolute;left:13px;top:28px;bottom:-2px;width:2px;background:#E5E7EB}
+.uo-step:last-child::before{display:none}
+.uo-num{width:28px;height:28px;border-radius:50%;background:#EEF4FF;color:#1A4DB5;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.uo-txt{font-size:14px;color:#172B4D;line-height:1.5;padding-top:3px}
+</style>
+<div class="modal-bg" id="order-modal">
+  <div class="modal" style="max-width:520px;width:94%;padding:24px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px">
+      <div id="order-modal-title" style="font-size:18px;font-weight:700;color:#091E42;line-height:1.3"></div>
+      <span onclick="closeOrderModal()" style="cursor:pointer;color:#42526E;display:inline-flex;flex-shrink:0;margin-top:2px"><span class="material-symbols-outlined" style="font-size:22px">close</span></span>
+    </div>
+    <div id="order-modal-intro" style="font-size:14px;color:#42526E;line-height:1.55;margin-bottom:18px"></div>
+    <div class="uo-steps" id="order-modal-steps"></div>
+    <div id="order-modal-footer" style="font-size:13px;color:#42526E;line-height:1.5;background:#F4F5F7;border-radius:6px;padding:12px 14px;margin-top:20px"></div>
   </div>
 </div>
 
@@ -13762,7 +13813,7 @@ function renderAllTillsTable(filter){
 /* patch goTo to init Stores tab when landing on loc-listing + handle zone/concept/till pages */
 const _origGoTo3=goTo;
 goTo=function(page,tab){
-  if(page==='zone-view'||page==='zone-create'||page==='concept-view'||page==='concept-create'||page==='till-view'||page==='till-create'||page==='brand-view'||page==='brand-edit'||page==='brand-bulk'||page==='ent-bulk'||page==='cat-view'||page==='cat-edit'||page==='attr-view'||page==='attr-edit'){
+  if(page==='zone-view'||page==='zone-create'||page==='concept-view'||page==='concept-create'||page==='till-view'||page==='till-create'||page==='brand-view'||page==='brand-edit'||page==='brand-bulk'||page==='ent-bulk'||page==='ent-bulk-choose'||page==='cat-view'||page==='cat-edit'||page==='attr-view'||page==='attr-edit'){
     csClose();
     document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
     var el=document.getElementById('page-'+page);
@@ -13971,9 +14022,9 @@ function _labelCfg(mod, tab, title){
   return {
     title:title, noun:'labels', mod:mod, tab:tab,
     csvSub:'File with label name, external ID, expiry configuration etc.',
-    limit:'only 100 labels can be added at a time',
+    limit:'only 500 labels can be added at a time',
     total:60, valid:54, errors:6,
-    cols:[{label:'Label name',minw:200},{label:'External ID',minw:180},{label:'Assignment expiry',minw:220},{label:'Description',minw:220}],
+    cols:[{label:'labelName',minw:200},{label:'externalId',minw:180},{label:'assignmentExpiry',minw:220},{label:'description',minw:220}],
     rows:[
       {s:'error', m:'Mandatory field missing',         c:['—','LBL-FLASH-001','Expire after X days','Flash sale labels']},
       {s:'valid',                                       c:['Flash Sale','LBL-FLASH-001','Expire after X days · 30','—']},
@@ -13991,9 +14042,9 @@ var ENT_BULK = {
   brands:{
     title:'Add new brands', noun:'brands', mod:'ent', tab:'brands',
     csvSub:'File with brand name, code, parent brand etc.',
-    limit:'only 100 brands can be added at a time',
+    limit:'only 500 brands can be added at a time',
     total:148, valid:121, errors:27,
-    cols:[{label:'Brand name',minw:200},{label:'Code',minw:180},{label:'Parent brand',minw:200},{label:'External ID',minw:180}],
+    cols:[{label:'name',minw:200},{label:'code',minw:180},{label:'parentBrand',minw:200},{label:'externalId',minw:180}],
     rows:[
       {s:'error', m:"Mandatory field missing",        c:['—','NK-RUN-01','Nike','EXT-9901']},
       {s:'valid',                                      c:['Nike','NIKE-001','—','EXT-1001']},
@@ -14010,9 +14061,9 @@ var ENT_BULK = {
   categories:{
     title:'Add new categories', noun:'categories', mod:'ent', tab:'cats',
     csvSub:'File with category name, code, parent category etc.',
-    limit:'only 100 categories can be added at a time',
+    limit:'only 500 categories can be added at a time',
     total:132, valid:110, errors:22,
-    cols:[{label:'Category name',minw:200},{label:'Code',minw:180},{label:'Parent category',minw:200},{label:'External ID',minw:180}],
+    cols:[{label:'name',minw:200},{label:'code',minw:180},{label:'parentCategory',minw:200},{label:'externalId',minw:180}],
     rows:[
       {s:'error', m:"Mandatory field missing",          c:['—','APP-01','Apparel','EXT-C-9901']},
       {s:'valid',                                        c:['Apparel','CAT-APP-001','—','EXT-C-1001']},
@@ -14027,9 +14078,9 @@ var ENT_BULK = {
   attributes:{
     title:'Add new attributes', noun:'attributes', mod:'ent', tab:'attrs',
     csvSub:'File with attribute name, code, data type etc.',
-    limit:'only 100 attributes can be added at a time',
+    limit:'only 500 attributes can be added at a time',
     total:90, valid:74, errors:16,
-    cols:[{label:'Attribute name',minw:200},{label:'Code',minw:170},{label:'Data type',minw:150},{label:'Possible values',minw:240}],
+    cols:[{label:'attributeName',minw:200},{label:'attributeCode',minw:170},{label:'dataType',minw:150},{label:'values',minw:240}],
     rows:[
       {s:'error', m:"Mandatory field missing",                 c:['—','ATTR-COL','Enum','Red, Blue']},
       {s:'valid',                                               c:['Colour','ATTR-COL','Enum','Red, Blue, Black']},
@@ -14046,7 +14097,7 @@ var ENT_BULK = {
     csvSub:'File with SKU code, product name, brand, category etc.',
     limit:'only 500 SKUs can be added at a time',
     total:500, valid:421, errors:79,
-    cols:[{label:'SKU code',minw:170},{label:'Product name',minw:220},{label:'Brand',minw:160},{label:'Category',minw:160},{label:'Price',minw:110},{label:'EAN',minw:170}],
+    cols:[{label:'skuCode',minw:170},{label:'productName',minw:220},{label:'brand',minw:160},{label:'category',minw:160},{label:'price',minw:110},{label:'ean',minw:170}],
     rows:[
       {s:'error', m:"Mandatory field missing",          c:['—','Annual Wi-Fi Pass','TechBrand','Electronics','4500','8901234567890']},
       {s:'valid',                                        c:['WIFI-PASS-365','Annual Wi-Fi Pass','TechBrand','Electronics','4500','8901234567890']},
@@ -14063,9 +14114,9 @@ var ENT_BULK = {
   concepts:{
     title:'Add new concepts', noun:'concepts', mod:'loc', tab:'concepts',
     csvSub:'File with concept name, code, external ID etc.',
-    limit:'only 100 concepts can be added at a time',
+    limit:'only 500 concepts can be added at a time',
     total:40, valid:35, errors:5,
-    cols:[{label:'Concept name',minw:220},{label:'Code',minw:180},{label:'External ID',minw:180},{label:'OU code',minw:140}],
+    cols:[{label:'name',minw:220},{label:'code',minw:180},{label:'externalId',minw:180},{label:'organizationUnit',minw:140}],
     rows:[
       {s:'error', m:"Mandatory field missing",  c:['—','LIFESTYLE-GRP','EXT-CN-9901','OU-HQ']},
       {s:'valid',                                c:['Lifestyle Retail Group','LIFESTYLE-GRP','EXT-CN-1001','OU-HQ']},
@@ -14078,9 +14129,9 @@ var ENT_BULK = {
   zones:{
     title:'Add new zones', noun:'zones', mod:'loc', tab:'zones',
     csvSub:'File with zone name, code, parent concept etc.',
-    limit:'only 100 zones can be added at a time',
+    limit:'only 500 zones can be added at a time',
     total:60, valid:50, errors:10,
-    cols:[{label:'Zone name',minw:200},{label:'Code',minw:180},{label:'Parent concept',minw:220},{label:'External ID',minw:180}],
+    cols:[{label:'name',minw:200},{label:'code',minw:180},{label:'parentZone',minw:220},{label:'externalId',minw:180}],
     rows:[
       {s:'error', m:"Mandatory field missing",            c:['—','WEST-IN','Lifestyle Retail Group','EXT-Z-9901']},
       {s:'valid',                                          c:['West India','WEST-INDIA-ZONE','Lifestyle Retail Group','EXT-Z-1001']},
@@ -14094,9 +14145,9 @@ var ENT_BULK = {
   stores:{
     title:'Add new stores', noun:'stores', mod:'loc', tab:'stores',
     csvSub:'File with store name, code, parent zone, parent concept etc.',
-    limit:'only 200 stores can be added at a time',
+    limit:'only 500 stores can be added at a time',
     total:200, valid:168, errors:32,
-    cols:[{label:'Store name',minw:200},{label:'Code',minw:160},{label:'Parent zone',minw:170},{label:'Parent concept',minw:200},{label:'Currency',minw:120},{label:'Timezone',minw:170}],
+    cols:[{label:'name',minw:200},{label:'code',minw:160},{label:'parentZone',minw:170},{label:'parentConcept',minw:200},{label:'currency',minw:120},{label:'timezone',minw:170}],
     rows:[
       {s:'error', m:"Mandatory field missing",            c:['—','MUM-01','West India','Lifestyle Retail Group','INR','Asia/Kolkata']},
       {s:'valid',                                          c:['Mumbai Central','MUM-CENTRAL-01','West India','Lifestyle Retail Group','INR','Asia/Kolkata']},
@@ -14113,9 +14164,9 @@ var ENT_BULK = {
   tills:{
     title:'Add new tills', noun:'tills', mod:'loc', tab:'tills',
     csvSub:'File with till name, code, parent store etc.',
-    limit:'only 200 tills can be added at a time',
+    limit:'only 500 tills can be added at a time',
     total:200, valid:176, errors:24,
-    cols:[{label:'Till name',minw:200},{label:'Code',minw:170},{label:'Store',minw:200},{label:'External ID',minw:180}],
+    cols:[{label:'name',minw:200},{label:'code',minw:170},{label:'store',minw:200},{label:'externalId',minw:180}],
     rows:[
       {s:'error', m:"Mandatory field missing",       c:['—','T-101','Mumbai Central','EXT-T-9901']},
       {s:'valid',                                     c:['main cashier','T-101','Mumbai Central','EXT-T-1001']},
@@ -14150,22 +14201,148 @@ function makeRemoveCfg(key){
 }
 var ENT_REMOVE={}; Object.keys(ENT_BULK).forEach(function(k){ ENT_REMOVE[k]=makeRemoveCfg(k); });
 
+/* Update flow (currently SKUs) — same columns, update-specific errors incl. "<entity> doesn't exist" */
+function makeUpdateCfg(key, existLabel){
+  var b=ENT_BULK[key];
+  var msgs=["Mandatory field missing", existLabel+" doesn't exist", "Referenced brand doesn't exist", "Bad format", "Invalid attribute value"];
+  var rows=b.rows.map(function(r,i){
+    if(i%3===1) return {s:'valid', c:r.c.slice()};
+    return {s:'error', m:msgs[i%msgs.length], c:r.c.slice()};
+  });
+  return {title:'Bulk update '+b.noun, noun:b.noun, mod:b.mod, tab:b.tab,
+    csvSub:b.csvSub, limit:b.limit.replace('can be added','can be updated'),
+    total:b.total, valid:b.valid, errors:b.errors, cols:b.cols, rows:rows, update:true};
+}
+var _existLabels={brands:'Brand',categories:'Category',attributes:'Attribute',labels:'Label','customer-labels':'Label','location-labels':'Label',zones:'Zone',concepts:'Concept',stores:'Store',tills:'Till',skus:'SKU'};
+var ENT_UPDATE={}; Object.keys(ENT_BULK).forEach(function(k){ ENT_UPDATE[k]=makeUpdateCfg(k, _existLabels[k]||'Record'); });
+
+/* Per-entity mandatory fields (drives instructions step 3) */
+var ENT_MANDATORY={
+  brands:      {fields:['Brand name','Brand code','Parent brand'], note:'Parent brand is not required for root brands'},
+  categories:  {fields:['Category name','Category code','Parent category'], note:'Parent category is not required for root categories'},
+  attributes:  {fields:['Attribute name','Attribute code','Data type'], note:'Possible values are required when Data type is Enum'},
+  labels:      {fields:['Label name','External ID'], note:''},
+  'customer-labels': {fields:['Label name','External ID'], note:''},
+  'location-labels': {fields:['Label name','External ID'], note:''},
+  zones:       {fields:['Zone name','Zone code','Parent zone'], note:''},
+  concepts:    {fields:['Concept name','Concept code'], note:''},
+  stores:      {fields:['Store name','Store code','Parent zone','Parent concept'], note:''},
+  tills:       {fields:['Store','Till name'], note:'Till name must start with a lowercase letter, minimum 3 characters, no uppercase or special characters'},
+  skus:        {fields:['SKU code','Product name','Brand','Category'], note:''}
+};
+
+/* Per-entity upload-order note + modal (hierarchical entities only) */
+var ENT_ORDER={
+  brands:{
+    note:'Upload parent brands before sub-brands.',
+    title:'Upload order for brands',
+    intro:'A brand can only be added once its parent exists, so upload top-down — level by level.',
+    steps:['Root brands first — parent is the organisation itself.',
+           'Next level of sub-brands — reference the root brands you just uploaded.',
+           'Continue down each level — each batch references the one above.'],
+    footer:"A brand referencing a parent that doesn't exist yet will fail with 'parent brand not found'."
+  },
+  categories:{
+    note:'Upload parent categories before sub-categories.',
+    title:'Upload order for categories',
+    intro:'A category can only be added once its parent exists, so upload top-down — level by level.',
+    steps:['Root categories first — parent is the organisation itself.',
+           'Next level of sub-categories — reference the root categories you just uploaded.',
+           'Continue down each level — each batch references the one above.'],
+    footer:"A category referencing a parent that doesn't exist yet will fail with 'parent category not found'."
+  },
+  zones:{
+    note:'Upload parent zones before sub-zones.',
+    title:'Upload order for zones',
+    intro:'A zone can only be added once its parent exists, so upload top-down — level by level.',
+    steps:['Root zones first — parent is the organisation itself.',
+           'Next level of sub-zones — reference the root zones you just uploaded.',
+           'Continue down each level — each batch references the one above.'],
+    footer:"A zone referencing a parent that doesn't exist yet will fail with 'parent zone not found'."
+  },
+  stores:{
+    note:'Upload concepts and zones before stores.',
+    title:'Upload order for stores',
+    intro:'A store is mapped to a concept and a zone, so those must already exist before you upload stores.',
+    steps:['Upload concepts — they sit directly under the organisation.',
+           'Upload zones — each references a concept.',
+           'Upload stores — each references an existing concept and zone (and any labels or attributes it uses).'],
+    footer:"A store referencing a zone or concept that doesn't exist yet will fail with 'parent zone not found' or 'parent concept not found'."
+  },
+  skus:{
+    note:'Upload brands and categories before SKUs.',
+    title:'Upload order for SKUs',
+    intro:'',
+    steps:['Upload brands and categories.',
+           'Upload SKUs.'],
+    footer:"If a SKU references a brand or category that isn't uploaded yet, that row will fail."
+  }
+};
+
+/* Entities that carry external IDs (drives the multi-external-ID note in step 2) */
+var ENT_HAS_EXTID={brands:1, categories:1, zones:1, stores:1, concepts:1, tills:1, labels:1, 'customer-labels':1, 'location-labels':1};
+function _buildInstr2(key){
+  var base="First row contains the column headers — don't rename or reorder them.";
+  if(ENT_HAS_EXTID[key]){
+    base+=' To map multiple external IDs, add extra columns named <span style="font-weight:500">externalId_2</span>, <span style="font-weight:500">externalId_3</span>, and so on.';
+  }
+  return base;
+}
+function _buildInstr3(key, cfg){
+  var mf=ENT_MANDATORY[key];
+  var sentence='Fill in all mandatory fields.';
+  if(mf && mf.fields.length){
+    var bold=mf.fields.map(function(f){ return '<span style="font-weight:500">'+f+'</span>'; });
+    var list = bold.length>1 ? bold.slice(0,-1).join(', ')+', and '+bold[bold.length-1] : bold[0];
+    sentence='Fill in all mandatory fields: '+list+'.';
+    if(mf.note) sentence+=' ('+mf.note+')';
+  }
+  return sentence;
+}
+function _buildInstr4(cfg){
+  return cfg.limit ? cfg.limit.charAt(0).toUpperCase()+cfg.limit.slice(1)+'.' : '';
+}
+function _applyOrderNote(key){
+  var note=document.getElementById('ebulk-order-note');
+  var o=ENT_ORDER[key];
+  if(o){ document.getElementById('ebulk-order-text').textContent=o.note; note.style.display='flex'; }
+  else { note.style.display='none'; }
+}
+function openOrderModal(){
+  var o=ENT_ORDER[_entBulkKey]; if(!o) return;
+  document.getElementById('order-modal-title').textContent=o.title;
+  var _introEl=document.getElementById('order-modal-intro');
+  _introEl.textContent=o.intro||''; _introEl.style.display=o.intro?'block':'none';
+  document.getElementById('order-modal-steps').innerHTML=o.steps.map(function(s,i){
+    return '<div class="uo-step"><div class="uo-num">'+(i+1)+'</div><div class="uo-txt">'+s+'</div></div>';
+  }).join('');
+  document.getElementById('order-modal-footer').textContent=o.footer;
+  document.getElementById('order-modal').classList.add('show');
+}
+function closeOrderModal(){ document.getElementById('order-modal').classList.remove('show'); }
+
 var _entBulkKey=null, _entBulkCfg=null, _entBulkFileName='', _entFlowMode='upload';
 
 function openEntFlow(key, mode){
-  var cfg = (mode==='remove'?ENT_REMOVE:ENT_BULK)[key]; if(!cfg) return;
+  var src = mode==='remove'?ENT_REMOVE : mode==='update'?ENT_UPDATE : ENT_BULK;
+  var cfg = src[key]; if(!cfg) return;
   _entFlowMode=mode; _entBulkKey=key; _entBulkCfg=cfg;
   document.getElementById('ebulk-title').textContent = cfg.title;
   var sub=document.getElementById('ebulk-subtitle');
-  if(sub){ if(mode==='remove'){ sub.style.display='none'; } else { sub.style.display='block'; sub.textContent='Bulk upload'; } }
+  if(sub){ if(mode==='upload'){ sub.style.display='block'; sub.textContent='Bulk upload'; } else { sub.style.display='none'; } }
   document.getElementById('ebulk-csvsub').textContent = cfg.csvSub;
-  document.getElementById('ebulk-instr-limit').textContent = cfg.limit;
-  document.getElementById('ebulk-submit1').textContent = (mode==='remove'?'Remove ':'Add ')+cfg.noun;
+  document.getElementById('ebulk-instr2').innerHTML = _buildInstr2(key);
+  document.getElementById('ebulk-instr3').innerHTML = _buildInstr3(key, cfg);
+  document.getElementById('ebulk-instr4').textContent = _buildInstr4(cfg);
+  _applyOrderNote(key);
+  var verb = mode==='remove'?'Remove ' : mode==='update'?'Update ' : 'Add ';
+  document.getElementById('ebulk-submit1').textContent = verb+cfg.noun;
   resetEntBulk();
   goTo('ent-bulk');
 }
 function openEntBulk(key){ openEntFlow(key,'upload'); }
 function openEntRemove(key){ openEntFlow(key,'remove'); }
+function openEntUpdate(key){ openEntFlow(key,'update'); }
 
 function resetEntBulk(){
   var up=document.getElementById('ebulk-upload-state'); if(up) up.style.display='block';
@@ -14185,6 +14362,12 @@ function handleEntBulkFile(file){
   document.getElementById('ebulk-filename').textContent=file.name;
   document.getElementById('ebulk-total').textContent=cfg.total;
 
+  // Code-first: render the code / skuCode column before the rest
+  var _ci=cfg.cols.findIndex(function(c){ return c.label==='code'||c.label==='skuCode'||c.label==='attributeCode'; });
+  var _order=cfg.cols.map(function(_,i){ return i; });
+  if(_ci>0){ _order.splice(_ci,1); _order.unshift(_ci); }
+  var _cols=_order.map(function(i){ return cfg.cols[i]; });
+
   // Header row
   var thead='<tr>';
   thead+='<th style="text-align:left;padding:14px 20px;font-size:13px;font-weight:500;color:#374151;width:280px;position:sticky;top:0;background:#F9FAFB;border-bottom:1px solid #E5E7EB;z-index:2">Record status'+
@@ -14192,12 +14375,12 @@ function handleEntBulkFile(file){
       '<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:400;color:#6B7280"><svg width="14" height="14" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>'+cfg.valid+' valid</span>'+
       '<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:400;color:#6B7280"><svg width="14" height="14" fill="none" stroke="#CF2020" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'+cfg.errors+' errors</span>'+
     '</div></th>';
-  cfg.cols.forEach(function(c){ thead+=_ebTh(c.label,c.minw); });
+  _cols.forEach(function(c){ thead+=_ebTh(c.label,c.minw); });
   thead+='</tr>';
   document.getElementById('ebulk-thead').innerHTML=thead;
 
   // Min width so it scrolls horizontally
-  var mw=280; cfg.cols.forEach(function(c){ mw+=c.minw; });
+  var mw=280; _cols.forEach(function(c){ mw+=c.minw; });
   document.getElementById('ebulk-table').style.minWidth=Math.max(mw,1080)+'px';
 
   // Body
@@ -14220,7 +14403,7 @@ function handleEntBulkFile(file){
       statusCell='<span class="eb-status-err">'+warnSvg+mainHtml+moreHtml+tipHtml+'</span>';
     }
     var tds='<td style="padding:18px 20px;vertical-align:top">'+statusCell+'</td>';
-    r.c.forEach(function(v){ tds+='<td style="padding:18px 20px;font-size:14px;color:#172B4D;vertical-align:top">'+v+'</td>'; });
+    _order.forEach(function(i){ tds+='<td style="padding:18px 20px;font-size:14px;color:#172B4D;vertical-align:top">'+(r.c[i]!==undefined?r.c[i]:'')+'</td>'; });
     return '<tr style="border-top:1px solid #f3f4f6">'+tds+'</tr>';
   }).join('');
 
@@ -14232,7 +14415,8 @@ function handleEntBulkFile(file){
     sb.onmouseover=function(){ this.style.background='#CF2020'; };
     sb.onmouseout=function(){ this.style.background='#E83135'; };
   } else {
-    sb.textContent='Add '+cfg.valid+' valid '+cfg.noun;
+    var verb=_entFlowMode==='update'?'Update ':'Add ';
+    sb.textContent=verb+cfg.valid+' valid '+cfg.noun;
     sb.style.background='#42B040';
     sb.onmouseover=function(){ this.style.background='#369934'; };
     sb.onmouseout=function(){ this.style.background='#42B040'; };
@@ -14259,15 +14443,13 @@ function entBulkBack(){
 
 function confirmEntBulk(){
   var cfg=_entBulkCfg;
+  var verb=_entFlowMode==='update'?'updated':'created and added';
   entBulkBack();
-  if(cfg) showToaster(cfg.valid+' '+cfg.noun+' created and added successfully!');
+  if(cfg) showToaster(cfg.valid+' '+cfg.noun+' '+verb+' successfully!');
 }
 
 /* Preview "submit" — upload commits directly; remove asks for confirmation first */
-function entFlowSubmit(){
-  if(_entFlowMode==='remove'){ openEntRemoveModal(); }
-  else { confirmEntBulk(); }
-}
+function entFlowSubmit(){ confirmEntBulk(); }
 
 function openEntRemoveModal(){
   var cfg=_entBulkCfg; if(!cfg) return;
@@ -14281,6 +14463,34 @@ function doEntRemove(){
   closeEntRemoveModal();
   entBulkBack();
   if(cfg) showToaster(cfg.valid+' '+cfg.noun+' removed successfully!', 'Download list of invalid records from <a class="toast-link" href="#" onclick="event.preventDefault()">here</a>');
+}
+
+/* ═══ BULK ACTIONS CHOOSER ═══  SKUs: Add / Update  ·  others: Add / Remove */
+var _baKey=null, _baSel=null, _baOpt2='remove';
+function openBulkActions(key){
+  var cfg=ENT_BULK[key]; if(!cfg) return;
+  _baKey=key; _baSel=null; _entBulkCfg=cfg;  // _entBulkCfg lets the back arrow return to the right listing
+  var noun=cfg.noun;
+  _baOpt2 = 'update';
+  document.getElementById('bachoose-add-title').textContent = (key==='skus') ? 'Add new SKUs' : 'Add '+noun;
+  document.getElementById('bachoose-add-desc').textContent='Upload a CSV file to add new '+noun+' in bulk.';
+  document.getElementById('bachoose-remove-title').textContent='Update '+noun;
+  document.getElementById('bachoose-remove-desc').textContent='Download your existing '+noun+', edit, and re-upload to update them in bulk.';
+  document.getElementById('bacard-add').classList.remove('sel');
+  document.getElementById('bacard-remove').classList.remove('sel');
+  var c=document.getElementById('bachoose-continue'); c.disabled=true; c.style.opacity='.55'; c.style.cursor='not-allowed';
+  goTo('ent-bulk-choose');
+}
+function baSelect(which){
+  _baSel=which;
+  document.getElementById('bacard-add').classList.toggle('sel', which==='add');
+  document.getElementById('bacard-remove').classList.toggle('sel', which!=='add');
+  var c=document.getElementById('bachoose-continue'); c.disabled=false; c.style.opacity=''; c.style.cursor='pointer';
+}
+function bulkActionsContinue(){
+  if(!_baKey || !_baSel) return;
+  if(_baSel==='add') openEntBulk(_baKey);
+  else openEntUpdate(_baKey);
 }
 
 let toastTimer;
