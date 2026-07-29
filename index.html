@@ -155,6 +155,11 @@ tbody tr:hover{background:#f9fafb}
 tbody tr.row-selected{background:#f0f9ff}
 .row-primary{font-weight:600;color:#111827;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row-secondary{font-size:12px;color:#9ca3af;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Transient "Refreshing…" activity indicator — sits under the status pill, subordinate (small, muted) */
+.status-cell{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.col-refreshing{display:inline-flex;align-items:center;gap:5px;margin-top:5px;font-size:11px;color:#5e6c84;line-height:1;white-space:nowrap}
+.col-refreshing-spin{width:10px;height:10px;border:1.5px solid #dfe2e7;border-top-color:#2466ea;border-radius:50%;animation:colRefreshSpin .7s linear infinite;flex:0 0 auto}
+@keyframes colRefreshSpin{to{transform:rotate(360deg)}}
 .content table td,.content table th{vertical-align:middle}
 .content table thead th{white-space:nowrap}
 .cb{width:15px;height:15px;cursor:pointer;accent-color:var(--cg7)}
@@ -1589,7 +1594,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
         <th>Status</th>
         <th>Customer count</th>
         <th>Refresh frequency</th>
-        <th>Last calculated<span class="th-sub">Refresh status</span></th>
+        <th>Last calculated</th>
         <th style="width:48px"></th>
       </tr></thead>
       <tbody id="cust-listing-col-tbody"></tbody>
@@ -1870,7 +1875,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <th>Status</th>
             <th>Item count</th>
             <th>Refresh frequency</th>
-            <th>Last calculated<span class="th-sub">Refresh status</span></th>
+            <th>Last calculated</th>
             <th style="width:48px"></th>
           </tr></thead>
           <tbody id="col-tbody"></tbody>
@@ -2021,11 +2026,11 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
     <!-- COLLECTIONS: Detail / View -->
     <div class="page" id="page-col-detail">
       <div class="detail-wrap">
-        <div class="plain-back" onclick="goTo('col-listing',currentColTab)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span id="col-detail-back">Collections</span></div>
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap;margin-left:25px">
-          <div>
-            <div class="detail-title" id="col-dv-title"></div>
-            <div class="detail-meta" id="col-dv-meta"></div>
+        <div class="back-row" style="margin-bottom:24px;align-items:flex-start">
+          <div class="back-arrow-btn" onclick="goTo('col-listing',currentColTab)"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></div>
+          <div style="flex:1;min-width:0">
+            <div class="page-title" id="col-dv-title"></div>
+            <div style="font-size:13px;color:#6b7280;margin-top:2px" id="col-dv-meta"></div>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start" id="col-detail-actions">
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
@@ -2041,30 +2046,21 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             </div>
           </div>
         </div>
-        <div id="col-eta-bar"></div>
-        <div class="col-detail-section">
-          <div class="col-detail-section-title">Details</div>
-          <div class="col-meta-grid">
+        <div style="max-width:860px;padding-left:36px">
+          <div id="col-eta-bar"></div>
+          <div style="font-size:16px;font-weight:600;color:#111827;margin-bottom:16px">Details</div>
+          <div class="col-meta-grid" style="margin-bottom:8px">
             <div class="view-row" style="margin-bottom:0"><div class="view-label">Status</div><div class="view-value" id="col-dv-status"></div></div>
             <div class="view-row" style="margin-bottom:0"><div class="view-label">Item count</div><div class="view-value" id="col-dv-count"></div></div>
-            <div class="view-row" style="margin-bottom:0"><div class="view-label" style="display:flex;align-items:center">External ID<span class="tz-info-icon" style="margin-left:4px;cursor:pointer;display:inline-flex;align-items:center;vertical-align:middle"><span class="material-symbols-outlined" style="font-size:16px">info</span><span class="tz-tooltip" style="white-space:normal;min-width:220px">Unique identifier for this location</span></span></div><div class="view-value" id="col-dv-extid"></div></div>
+            <div class="view-row" style="margin-bottom:0"><div class="view-label" style="display:flex;align-items:center">External ID<span class="tz-info-icon" style="margin-left:4px;cursor:pointer;display:inline-flex;align-items:center;vertical-align:middle"><span class="material-symbols-outlined" style="font-size:16px">info</span><span class="tz-tooltip" style="white-space:normal;min-width:220px">Unique identifier for this collection</span></span></div><div class="view-value" id="col-dv-extid"></div></div>
             <div class="view-row" style="margin-bottom:0"><div class="view-label">OU code</div><div class="view-value" id="col-dv-ou"></div></div>
             <div class="view-row" style="margin-bottom:0"><div class="view-label">Refresh frequency</div><div class="view-value" id="col-dv-freq"></div></div>
             <div class="view-row" style="margin-bottom:0"><div class="view-label">Last calculated</div><div class="view-value" id="col-dv-lastcalc"></div></div>
             <div class="view-row" style="margin-bottom:0"><div class="view-label">Next scheduled run</div><div class="view-value" id="col-dv-nextrun"></div></div>
             <div class="view-row" style="margin-bottom:0;grid-column:1/-1"><div class="view-label">Description</div><div class="view-value" id="col-dv-desc"></div></div>
           </div>
-        </div>
-        <div class="col-detail-section">
-          <div class="col-detail-section-title" id="col-dv-memb-title">Membership criteria</div>
+          <div style="font-size:16px;font-weight:600;color:#111827;margin:28px 0 16px" id="col-dv-memb-title">Membership criteria</div>
           <div id="col-dv-rules"></div>
-        </div>
-        <div id="col-audit-tab-section" style="margin-top:16px">
-          <button class="btn-gray" id="col-show-audit-btn" onclick="colShowAudit()" style="margin-bottom:12px">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            Show audit logs
-          </button>
-          <div id="col-dv-audit" style="display:none"></div>
         </div>
       </div>
     </div>
@@ -2387,7 +2383,7 @@ tr:has(> td > .col-status.pending):hover > td{background:#fef9c3 !important}
             <th>Status</th>
             <th>Item count</th>
             <th>Refresh frequency</th>
-            <th>Last calculated<span class="th-sub">Refresh status</span></th>
+            <th>Last calculated</th>
             <th style="width:48px"></th>
           </tr></thead>
           <tbody id="loc-listing-col-tbody"></tbody>
@@ -10435,8 +10431,9 @@ function colOperatorsByType(type) {
 /* collections data store */
 let collections = [
   {id:'CG-1001',name:'Flash Sale Items',extId:'COLL-FS-001',externalId:'EXT-FS-001',desc:'All products eligible for flash sale promotions',entity:'Products',status:'active',refreshStatus:'success',count:342,freqN:1,freqUnit:'hours',lastCalc:'Mar 28, 2026, 10:45 AM IST',nextRun:'Mar 28, 2026, 11:45 AM IST',createdBy:'Priya Mehta',createdAt:'Jan 1, 2026',rules:[{interLogic:'and',conditions:[{field:'category',op:'eq',val:'Electronics'},{field:'stock',op:'gt',val:'10'}]}]},
-  {id:'CG-1002',name:'Summer Clearance',extId:'COLL-SC-002',externalId:'EXT-SC-002',desc:'Products in clearance for the summer season',entity:'Products',status:'active',refreshStatus:'in progress',count:0,freqN:1,freqUnit:'days',lastCalc:'—',nextRun:'—',createdBy:'Vikram Nair',createdAt:'Mar 25, 2026',rules:[{interLogic:'and',conditions:[{field:'category',op:'eq',val:'Apparel'},{field:'price',op:'lte',val:'500'}]}]},
+  {id:'CG-1002',name:'Summer Clearance',extId:'COLL-SC-002',externalId:'EXT-SC-002',desc:'Products in clearance for the summer season',entity:'Products',status:'active',refreshStatus:'in progress',count:64,freqN:1,freqUnit:'days',lastCalc:'Mar 26, 2026, 08:00 AM IST',nextRun:'Mar 29, 2026, 08:00 AM IST',createdBy:'Vikram Nair',createdAt:'Mar 25, 2026',rules:[{interLogic:'and',conditions:[{field:'category',op:'eq',val:'Apparel'},{field:'price',op:'lte',val:'500'}]}]},
   {id:'CG-1003',name:'High Value Products',extId:'COLL-HV-003',externalId:'EXT-HV-003',desc:'Premium products above a price threshold',entity:'Products',status:'active',refreshStatus:'success',count:127,freqN:7,freqUnit:'days',lastCalc:'Mar 27, 2026, 12:00 PM IST',nextRun:'Apr 3, 2026, 12:00 PM IST',createdBy:'Rahul Sharma',createdAt:'Feb 10, 2026',rules:[{interLogic:'and',conditions:[{field:'price',op:'gte',val:'5000'}]}]},
+  {id:'CG-1007',name:'Weekend Deals',extId:'COLL-WD-007',externalId:'EXT-WD-007',desc:'Products on weekend flash deals',entity:'Products',status:'active',refreshStatus:'in progress',count:512,freqN:1,freqUnit:'hours',lastCalc:'Mar 28, 2026, 09:15 AM IST',nextRun:'Mar 28, 2026, 10:15 AM IST',createdBy:'Priya Mehta',createdAt:'Feb 5, 2026',rules:[{interLogic:'and',conditions:[{field:'category',op:'eq',val:'Snacks'}]}]},
   {id:'CG-1004',name:'Tier 1 Metro Stores',extId:'COLL-T1-004',externalId:'EXT-T1-004',desc:'',entity:'Locations',status:'active',refreshStatus:'success',count:48,freqN:1,freqUnit:'weeks',lastCalc:'Mar 25, 2026, 09:00 AM IST',nextRun:'Apr 1, 2026, 09:00 AM IST',createdBy:'Ananya Singh',createdAt:'Jan 15, 2026',rules:[{interLogic:'and',conditions:[{field:'zone',op:'eq',val:'Metro'},{field:'city',op:'in',val:'Mumbai,Delhi,Bangalore'}]}]},
   {id:'CG-1005',name:'Paused Test Group',extId:'',externalId:'EXT-PT-005',desc:'Testing collection — currently inactive',entity:'Products',status:'deactivated',refreshStatus:'success',count:15,freqN:30,freqUnit:'minutes',lastCalc:'Mar 20, 2026, 03:00 PM IST',nextRun:'Paused',createdBy:'You',createdAt:'Mar 20, 2026',rules:[{interLogic:'and',conditions:[{field:'brand',op:'eq',val:'Nike'}]}]},
   {id:'CG-1006',name:'Broken Field Group',extId:'',externalId:'EXT-BF-006',desc:'A group with an invalid field reference',entity:'Products',status:'active',refreshStatus:'error',count:0,freqN:1,freqUnit:'days',lastCalc:'Mar 10, 2026, 08:00 AM IST',nextRun:'Halted',createdBy:'System',createdAt:'Mar 1, 2026',rules:[{interLogic:'and',conditions:[{field:'__deleted__',op:'eq',val:'something'},{field:'price',op:'gt',val:'100'}]}],hasInvalidField:true},
@@ -10534,16 +10531,17 @@ function renderColTable(filter){
     // Status: only Active / Inactive
     const isInactive = c.status === 'deactivated';
     const statusPill = '<span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;'+(isInactive?'background:#f3f4f6;color:#6b7280;border-color:#d1d5db':'background:#f0fdf4;color:#16a34a;border-color:#86efac')+'">'+(isInactive?'Inactive':'Active')+'</span>';
-    // Refresh status: success / in progress / error
-    const rs = c.refreshStatus || 'success';
-    const rsColour = rs==='error' ? '#dc2626' : (rs==='in progress' ? '#b45309' : '#16a34a');
-    const rsLabel  = rs.charAt(0).toUpperCase()+rs.slice(1);
+    // "Refreshing…" is transient activity shown under the status pill only while a refresh runs
+    const isRefreshing = c.refreshStatus==='in progress' || c.status==='calculating' || c.status==='pending';
+    const refreshingInd = isRefreshing ? '<div class="col-refreshing"><span class="col-refreshing-spin"></span>Refreshing…</div>' : '';
+    // Last-calculated outcome reflects the last COMPLETED run — stays visible even while a new refresh runs; blank only if nothing has completed yet
+    const refreshOutcome = c.refreshStatus==='error' ? '<div class="row-secondary" style="color:#dc2626;font-weight:500">Error</div>' : ((c.lastCalc&&c.lastCalc!=='—') ? '<div class="row-secondary" style="color:#16a34a;font-weight:500">Success</div>' : '');
     return '<tr onclick="openColDetail('+realIdx+')">'+
       '<td><div class="row-primary">'+c.name+'</div><div class="row-secondary" style="font-family:ui-monospace,monospace">'+(c.externalId||'—')+'</div></td>'+
       '<td>'+statusPill+'</td>'+
-      '<td style="font-weight:600;color:#111827">'+(c.count>0?c.count.toLocaleString():(isInactive?'—':'0'))+'</td>'+
+      '<td><div class="status-cell"><span style="font-weight:600;color:#111827">'+(c.count>0?c.count.toLocaleString():(isInactive?'—':'0'))+'</span>'+refreshingInd+'</div></td>'+
       '<td style="font-size:13px;color:#374151">'+colFreqLabel(c)+'</td>'+
-      '<td><div class="row-primary" style="font-size:12px">'+c.lastCalc+'</div><div class="row-secondary" style="color:'+rsColour+';font-weight:500">'+rsLabel+'</div></td>'+
+      '<td><div class="row-primary" style="font-size:12px">'+(c.lastCalc||'—')+'</div></td>'+
       '<td class="ellipsis-cell" onclick="event.stopPropagation()">'+
         '<button class="ellipsis-btn" onclick="toggleMenu(event,\'cmenu-'+realIdx+'\')">···</button>'+
         '<div class="row-menu" id="cmenu-'+realIdx+'">'+
@@ -10566,7 +10564,6 @@ function colArchiveFromTable(idx){closeAllDropdowns();currentCollectionIdx=idx;c
 function openColDetail(idx){
   currentCollectionIdx=idx;
   const c=collections[idx];
-  document.getElementById('col-detail-back').textContent=(currentColTab==='Customers'?'Audiences':currentColTab+' Collections');
   document.getElementById('col-dv-title').textContent=c.name;
   document.getElementById('col-dv-meta').textContent='ID: '+c.id+(c.extId?' · External ID: '+c.extId:'')+' · Created by '+c.createdBy+' on '+c.createdAt;
   const statusLabel={active:'Active',pending:'Processing',calculating:'Calculating',paused:'Paused',error:'Error',archived:'Archived',deactivated:'Inactive'}[c.status]||c.status;
@@ -10725,10 +10722,11 @@ function _doCalculate(idx){
   renderColTable();
   setTimeout(()=>{
     c.status='active';
+    c.refreshStatus='success';   // refresh finished → "Refreshing…" clears, timestamp updates below
     c.count=Math.floor(Math.random()*500)+20;
     const now=new Date();
     c.lastCalc=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+', '+now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+ ' IST';
-    const _fper={hourly:3600000,daily:86400000,weekly:604800000,monthly:2592000000,minutes:60000,hours:3600000,days:86400000,weeks:604800000,months:2592000000}[c.freqUnit]||86400000;
+    const _fper={hourly:3600000,daily:86400000,weekly:604800000,monthly:2592000000,quarterly:7776000000,yearly:31536000000,minutes:60000,hours:3600000,days:86400000,weeks:604800000,months:2592000000}[c.freqUnit]||86400000;
     const _fn=(typeof c.freqN==='number'&&c.freqN>0)?c.freqN:1;
     const next=new Date(now.getTime()+_fn*_fper);
     c.nextRun=c.freqUnit==='manual'?'On demand':next.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+', '+next.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+' IST';
@@ -11040,23 +11038,30 @@ function rbInterChange(cId,ctrlId,v){const r=rbGetRules(cId); r.forEach(b=>b.int
 
 /* ─── FREQUENCY HELPERS ─── */
 /* ═══ Refresh-frequency scheduler — Hourly / Daily / Weekly / Monthly / Custom (cron) ═══ */
-const FREQ_OPTS=[{v:'hourly',l:'Hourly'},{v:'daily',l:'Daily'},{v:'weekly',l:'Weekly'},{v:'monthly',l:'Monthly'},{v:'__div__'},{v:'cron',l:'Custom (cron expression)'}];
+const FREQ_OPTS=[{v:'hourly',l:'Hourly'},{v:'daily',l:'Daily'},{v:'weekly',l:'Weekly'},{v:'monthly',l:'Monthly'},{v:'quarterly',l:'Quarterly'},{v:'yearly',l:'Yearly'},{v:'manual',l:'Manual refresh'},{v:'__div__'},{v:'cron',l:'Custom (cron expression)'}];
 const FREQ_WEEKDAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 const FREQ_MONTHDAYS=[{v:'first',l:'First day of the month'},{v:'15th',l:'15th day of the month'},{v:'last',l:'Last day of the month'}];
 const FREQ_TIMES=(function(){var a=[];for(var h=0;h<24;h++){for(var mi=0;mi<2;mi++){var m=mi?30:0;var ap=h<12?'AM':'PM';var hh=h%12;if(hh===0)hh=12;a.push((hh<10?'0'+hh:''+hh)+':'+(m===0?'00':'30')+' '+ap);}}return a;})();
-const colFreqState={c:{unit:'daily',day:'Monday',days:['Monday'],mday:'first',time:'12:00 AM',cron:''},e:{unit:'daily',day:'Monday',days:['Monday'],mday:'first',time:'12:00 AM',cron:''}};
+const colFreqState={c:{unit:'daily',day:'Monday',days:['Monday'],mday:'first',time:'12:00 AM',yearDate:'',cron:''},e:{unit:'daily',day:'Monday',days:['Monday'],mday:'first',time:'12:00 AM',yearDate:'',cron:''}};
 var freqDaysOpenP=null, freqDaysDraft=null, freqDaysQuery='';
 function freqEsc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function freqInfo(){return '<span class="material-symbols-outlined" title="How often this collection’s membership is recalculated" style="font-size:16px;color:#97a0af;cursor:help;vertical-align:middle;font-weight:400">info</span>';}
+// Quarterly info icon — hover explains the fixed quarter-end dates that get used
+function quarterInfo(){return '<span class="material-symbols-outlined" title="The usual quarter-end dates are used automatically: Mar 31, Jun 30, Sep 30, and Dec 31." style="font-size:16px;color:#97a0af;cursor:help;vertical-align:middle;font-weight:400">info</span>';}
 function freqMonthLabel(m){var o=FREQ_MONTHDAYS.find(function(x){return x.v===m;});return o?o.l:'First day of the month';}
+function freqYearDateLabel(d){ if(!d) return ''; var parts=String(d).split('-'); if(parts.length<3) return d; var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][(+parts[1]||1)-1]||''; return mo+' '+(+parts[2]||''); }
 function freqSummary(st){
   if(st.unit==='hourly') return 'Runs every hour';
   if(st.unit==='daily') return 'Runs daily at '+st.time;
   if(st.unit==='weekly'){ var ds=(st.days&&st.days.length)?st.days:[]; if(!ds.length) return 'Runs weekly at '+st.time; if(ds.length===7) return 'Runs every day at '+st.time; return 'Runs every '+ds.join(', ')+' at '+st.time; }
   if(st.unit==='monthly') return 'Runs on the '+freqMonthLabel(st.mday)+' at '+st.time;
+  if(st.unit==='quarterly') return 'Runs on the quarter-end dates (Mar 31, Jun 30, Sep 30, Dec 31) at '+st.time;
+  if(st.unit==='yearly'){ var yd=freqYearDateLabel(st.yearDate); return yd?('Runs yearly on '+yd+' at '+st.time):('Runs yearly at '+st.time); }
+  if(st.unit==='manual') return 'Refreshes only when manually triggered';
   if(st.unit==='cron') return st.cron?('Runs on cron schedule: '+st.cron):'';
   return '';
 }
+function freqYearDate(p,v){ colFreqState[p].yearDate=v; var s=document.getElementById('col-'+p+'-freq-summary'), txt=freqSummary(colFreqState[p]); if(s){ s.textContent=txt; s.style.display=txt?'block':'none'; } if(p==='e') colEditDirtyFn(); }
 function freqNoClear(id){ if(csData[id]){ csData[id].noClear=true; csRender(id); } }
 function freqCronInput(p,v){
   colFreqState[p].cron=v;
@@ -11067,14 +11072,18 @@ function freqCronInput(p,v){
 function freqRender(p){
   var wrap=document.getElementById('col-'+p+'-freq-wrap'); if(!wrap) return;
   var st=colFreqState[p];
-  var needsOn=st.unit==='weekly'||st.unit==='monthly';
-  var needsAt=st.unit==='daily'||st.unit==='weekly'||st.unit==='monthly';
+  var needsOn=st.unit==='weekly'||st.unit==='monthly'||st.unit==='yearly';
+  var needsAt=st.unit==='daily'||st.unit==='weekly'||st.unit==='monthly'||st.unit==='quarterly'||st.unit==='yearly';
   var isCron=st.unit==='cron';
   // fields stretch to fill the form column so the row's right edge aligns with the other Basic-info fields
   var fld=function(label,inner){return '<div style="flex:1 1 0;min-width:0;max-width:340px"><label class="form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:6px">'+label+'</label>'+inner+'</div>';};
+  var freqLabel='Refresh frequency '+(st.unit==='quarterly'?quarterInfo():freqInfo());
   var row='<div style="display:flex;gap:16px;align-items:flex-start">';
-  row+=fld('Refresh frequency '+freqInfo(),'<div class="cs-wrap" id="col-'+p+'-freq-cs" style="width:100%"></div>');
-  if(needsOn) row+=fld('On','<div class="cs-wrap" id="col-'+p+'-freq-on" style="width:100%"></div>');
+  row+=fld(freqLabel,'<div class="cs-wrap" id="col-'+p+'-freq-cs" style="width:100%"></div>');
+  if(needsOn){
+    if(st.unit==='yearly') row+=fld('On','<input type="date" id="col-'+p+'-freq-ondate" class="form-input" style="width:100%;box-sizing:border-box" value="'+freqEsc(st.yearDate)+'" onchange="freqYearDate(\''+p+'\',this.value)"/>');
+    else row+=fld('On','<div class="cs-wrap" id="col-'+p+'-freq-on" style="width:100%"></div>');
+  }
   if(needsAt) row+=fld('At','<div class="cs-wrap" id="col-'+p+'-freq-at" style="width:100%"></div>');
   if(isCron) row+=fld('Cron expression','<input type="text" id="col-'+p+'-freq-cron" class="form-input" style="width:100%;box-sizing:border-box" placeholder="e.g. 0 */6 * * *" value="'+freqEsc(st.cron)+'" oninput="freqCronInput(\''+p+'\',this.value)"/>');
   row+='</div>';
@@ -11084,7 +11093,7 @@ function freqRender(p){
   var chg=function(){ if(p==='e') colEditDirtyFn(); };
   csCreate('col-'+p+'-freq-cs', FREQ_OPTS, 'Select frequency', st.unit, function(v){ st.unit=v; freqRender(p); chg(); });
   freqNoClear('col-'+p+'-freq-cs');
-  if(needsOn){
+  if(needsOn && st.unit!=='yearly'){
     if(st.unit==='weekly'){ freqDaysOpenP=null; freqDaysRender(p); }
     else { csCreate('col-'+p+'-freq-on', FREQ_MONTHDAYS, 'Select day', st.mday, function(v){ st.mday=v; freqRender(p); chg(); }); freqNoClear('col-'+p+'-freq-on'); }
   }
@@ -11165,7 +11174,8 @@ function freqGetValue(p){
     freqN: st.unit==='cron' ? st.cron : 1,
     freqDay: st.unit==='monthly' ? st.mday : null,
     freqDays: st.unit==='weekly' ? (st.days||[]).slice() : null,
-    freqTime: (st.unit==='daily'||st.unit==='weekly'||st.unit==='monthly') ? st.time : null,
+    freqTime: (st.unit==='daily'||st.unit==='weekly'||st.unit==='monthly'||st.unit==='quarterly'||st.unit==='yearly') ? st.time : null,
+    freqDate: st.unit==='yearly' ? st.yearDate : null,
     cron: st.cron
   };
 }
@@ -11174,6 +11184,7 @@ function freqNormUnit(u){
   if(u==='week'||u==='weeks') return 'weekly';
   if(u==='month'||u==='months') return 'monthly';
   if(u==='cron') return 'cron';
+  if(u==='quarterly'||u==='yearly'||u==='manual') return u;
   if(u==='hourly'||u==='daily'||u==='weekly'||u==='monthly') return u;
   return 'daily';
 }
@@ -11184,6 +11195,7 @@ function freqSetValue(p, c){
   st.day=st.days[0]||'Monday';
   st.mday=(c.freqDay&&['first','15th','last'].indexOf(c.freqDay)>=0)?c.freqDay:'first';
   st.time=c.freqTime||'12:00 AM';
+  st.yearDate=c.freqDate||'';
   st.cron=(freqNormUnit(c.freqUnit)==='cron')?(c.cron||c.freqN||''):'';
   freqRender(p);
 }
@@ -11195,12 +11207,14 @@ function colFreqLabel(c){
   if(u==='daily') return 'Daily'+(c.freqTime?' · '+c.freqTime:'');
   if(u==='weekly'){ var wd=(c.freqDays&&c.freqDays.length)?c.freqDays:(c.freqDay?[c.freqDay]:[]); return 'Weekly'+(wd.length?' · '+(wd.length===7?'All days':wd.join(', ')):''); }
   if(u==='monthly') return 'Monthly'+(c.freqDay?' · '+freqMonthLabel(c.freqDay):'');
+  if(u==='quarterly') return 'Quarterly'+(c.freqTime?' · '+c.freqTime:'');
+  if(u==='yearly') return 'Yearly'+(c.freqDate?' · '+freqYearDateLabel(c.freqDate):'')+(c.freqTime?' · '+c.freqTime:'');
   return 'Daily';
 }
 function colFreqDetail(c){
   if(c.freqUnit==='manual') return 'Manual refresh';
   var wd=(c.freqDays&&c.freqDays.length)?c.freqDays:(c.freqDay&&FREQ_WEEKDAYS.indexOf(c.freqDay)>=0?[c.freqDay]:['Monday']);
-  return freqSummary({unit:freqNormUnit(c.freqUnit), days:wd, mday:c.freqDay||'first', time:c.freqTime||'12:00 AM', cron:c.cron||(freqNormUnit(c.freqUnit)==='cron'?c.freqN:'')})||'—';
+  return freqSummary({unit:freqNormUnit(c.freqUnit), days:wd, mday:c.freqDay||'first', time:c.freqTime||'12:00 AM', yearDate:c.freqDate||'', cron:c.cron||(freqNormUnit(c.freqUnit)==='cron'?c.freqN:'')})||'—';
 }
 
 
@@ -12064,15 +12078,15 @@ function renderLocListingCollectionsTab(filter){
     var realIdx=collections.indexOf(c);
     var isInactive = c.status === 'deactivated';
     var statusPill = '<span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;'+(isInactive?'background:#f3f4f6;color:#6b7280;border-color:#d1d5db':'background:#f0fdf4;color:#16a34a;border-color:#86efac')+'">'+(isInactive?'Inactive':'Active')+'</span>';
-    var rs = c.refreshStatus || 'success';
-    var rsColour = rs==='error' ? '#dc2626' : (rs==='in progress' ? '#b45309' : '#16a34a');
-    var rsLabel  = rs.charAt(0).toUpperCase()+rs.slice(1);
+    var isRefreshing = c.refreshStatus==='in progress' || c.status==='calculating' || c.status==='pending';
+    var refreshingInd = isRefreshing ? '<div class="col-refreshing"><span class="col-refreshing-spin"></span>Refreshing…</div>' : '';
+    var refreshOutcome = c.refreshStatus==='error' ? '<div class="row-secondary" style="color:#dc2626;font-weight:500">Error</div>' : ((c.lastCalc&&c.lastCalc!=='—') ? '<div class="row-secondary" style="color:#16a34a;font-weight:500">Success</div>' : '');
     return '<tr style="cursor:pointer" onclick="openColDetail('+realIdx+')">'+
       '<td><div class="row-primary">'+c.name+'</div><div class="row-secondary" style="font-family:ui-monospace,monospace">'+(c.externalId||'—')+'</div></td>'+
       '<td>'+statusPill+'</td>'+
-      '<td style="font-weight:600;color:#111827">'+(c.count>0?c.count.toLocaleString():(isInactive?'—':'0'))+'</td>'+
+      '<td><div class="status-cell"><span style="font-weight:600;color:#111827">'+(c.count>0?c.count.toLocaleString():(isInactive?'—':'0'))+'</span>'+refreshingInd+'</div></td>'+
       '<td style="font-size:13px;color:#374151">'+colFreqLabel(c)+'</td>'+
-      '<td><div class="row-primary" style="font-size:12px">'+c.lastCalc+'</div><div class="row-secondary" style="color:'+rsColour+';font-weight:500">'+rsLabel+'</div></td>'+
+      '<td><div class="row-primary" style="font-size:12px">'+(c.lastCalc||'—')+'</div></td>'+
       '<td class="ellipsis-cell" onclick="event.stopPropagation()">'+
         '<button class="ellipsis-btn" onclick="toggleMenu(event,\'loccol-m-'+realIdx+'\')">···</button>'+
         '<div class="row-menu" id="loccol-m-'+realIdx+'">'+
@@ -12094,15 +12108,15 @@ function renderCustListingCollectionsTab(filter){
     var realIdx=collections.indexOf(c);
     var isInactive = c.status === 'deactivated';
     var statusPill = '<span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;'+(isInactive?'background:#f3f4f6;color:#6b7280;border-color:#d1d5db':'background:#f0fdf4;color:#16a34a;border-color:#86efac')+'">'+(isInactive?'Inactive':'Active')+'</span>';
-    var rs = c.refreshStatus || 'success';
-    var rsColour = rs==='error' ? '#dc2626' : (rs==='in progress' ? '#b45309' : '#16a34a');
-    var rsLabel  = rs.charAt(0).toUpperCase()+rs.slice(1);
+    var isRefreshing = c.refreshStatus==='in progress' || c.status==='calculating' || c.status==='pending';
+    var refreshingInd = isRefreshing ? '<div class="col-refreshing"><span class="col-refreshing-spin"></span>Refreshing…</div>' : '';
+    var refreshOutcome = c.refreshStatus==='error' ? '<div class="row-secondary" style="color:#dc2626;font-weight:500">Error</div>' : ((c.lastCalc&&c.lastCalc!=='—') ? '<div class="row-secondary" style="color:#16a34a;font-weight:500">Success</div>' : '');
     return '<tr style="cursor:pointer" onclick="openCustColDetail('+realIdx+')">'+
       '<td><div class="row-primary">'+c.name+'</div><div class="row-secondary" style="font-family:ui-monospace,monospace">'+(c.externalId||'—')+'</div></td>'+
       '<td>'+statusPill+'</td>'+
-      '<td style="font-weight:600;color:#111827">'+(c.count>0?c.count.toLocaleString():(isInactive?'—':'0'))+'</td>'+
+      '<td><div class="status-cell"><span style="font-weight:600;color:#111827">'+(c.count>0?c.count.toLocaleString():(isInactive?'—':'0'))+'</span>'+refreshingInd+'</div></td>'+
       '<td style="font-size:13px;color:#374151">'+colFreqLabel(c)+'</td>'+
-      '<td><div class="row-primary" style="font-size:12px">'+c.lastCalc+'</div><div class="row-secondary" style="color:'+rsColour+';font-weight:500">'+rsLabel+'</div></td>'+
+      '<td><div class="row-primary" style="font-size:12px">'+(c.lastCalc||'—')+'</div></td>'+
       '<td class="ellipsis-cell" onclick="event.stopPropagation()">'+
         '<button class="ellipsis-btn" onclick="toggleMenu(event,\'custcol-m-'+realIdx+'\')">···</button>'+
         '<div class="row-menu" id="custcol-m-'+realIdx+'">'+
@@ -15142,7 +15156,7 @@ const OPS={
   number:["is","is not","greater than","greater than or equal","less than","less than or equal","is between","is set","is not set"],
   enum:["is","is not"],
   date:["is","is before","is after","is between","in the last","is set","is not set"],
-  set:["includes any of","includes all of","includes none of"],
+  set:["includes any of","includes all of","includes none of","starts with","ends with"],
   bool:["is"]
 };
 const NO_VALUE=["is empty","is not empty","is set","is not set"];
@@ -15436,6 +15450,7 @@ function isComplete(c){
   if(c.kind==="metric") return !!(c.fact && (c.mop==="between" ? (c.value&&c.value2) : c.value));
   if(!c.op) return false;
   if(NO_VALUE.includes(c.op)) return true;
+  if(c.dt==="set"&&(c.op==="starts with"||c.op==="ends with")) return !!(c.value&&String(c.value).trim());
   if(c.dt==="enum"||c.dt==="set"||((c.dt==="code"||c.dt==="text")&&(c.op==="is"||c.op==="is not"))) return c.list.length>0;
   if(c.dt==="bool") return !!c.value;
   return !!(c.value&&String(c.value).trim());
@@ -15520,6 +15535,7 @@ function renderUploadedSimple(c){
 function valueUnitCells(c){
   const op=c.op, id=c.id;
   if(NO_VALUE.includes(op)) return {value:"",unit:""};
+  if(c.dt==="set"&&(op==="starts with"||op==="ends with")) return {value:`<input class="inp" data-act="val" data-id="${id}" data-k="value" value="${esc(c.value)}" placeholder="value">`,unit:""};
   if(c.dt==="enum"||c.dt==="set") return {value:msControl(c),unit:""};
   if(c.dt==="bool") return {value:ynControl(c),unit:""};
   if((c.dt==="text")&&(op==="is"||op==="is not")) return {value:msControl(c),unit:""};
@@ -15658,7 +15674,7 @@ function readsSimple(c, trunc){
   if(!c.op) return `<b>${esc(c.attr)}</b> …`;
   if(NO_VALUE.includes(c.op)) return `<b>${esc(c.attr)}</b> <span class="kw">${c.op}</span>`;
   let v;
-  if(c.dt==="enum"||c.dt==="set"||((c.dt==="code"||c.dt==="text")&&(c.op==="is"||c.op==="is not"))){
+  if(c.dt==="enum"||(c.dt==="set"&&!(c.op==="starts with"||c.op==="ends with"))||((c.dt==="code"||c.dt==="text")&&(c.op==="is"||c.op==="is not"))){
     if(!c.list.length) v="…";
     else if(trunc) v=esc(c.list[0])+(c.list.length>1?` <span class="msmore">+ ${c.list.length-1} more</span>`:"");
     else v=c.list.map(esc).join(", ");
